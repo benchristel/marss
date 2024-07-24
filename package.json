@@ -1,0 +1,10 @@
+{
+  "name": "marss",
+  "version": "0.0.0",
+  "description": "Markdown-to-RSS converter",
+  "main": "index.js",
+  "repository": "https://github.com/benchristel/marss",
+  "author": "Ben Christel",
+  "license": "MIT",
+  "private": false
+}
