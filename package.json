@@ -9,16 +9,19 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@benchristel/taste": "^0.5.0",
     "@eslint/js": "^9.7.0",
     "@stylistic/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^7.17.0",
     "eslint": "^9.7.0",
+    "glob": "^11.0.0",
     "husky": "^9.1.1",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
   },
   "scripts": {
     "format": "devtools/format.sh",
+    "test": "devtools/run-tests.js",
     "ts": "yarn tsc --watch --noEmit",
     "prepare": "husky"
   }
