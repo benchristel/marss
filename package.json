@@ -3,8 +3,23 @@
   "version": "0.0.0",
   "description": "Markdown-to-RSS converter",
   "main": "index.js",
+  "type": "module",
   "repository": "https://github.com/benchristel/marss",
   "author": "Ben Christel",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@stylistic/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^7.17.0",
+    "eslint": "^9.7.0",
+    "husky": "^9.1.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "format": "devtools/format.sh",
+    "ts": "yarn tsc --watch --noEmit",
+    "prepare": "husky"
+  }
 }
