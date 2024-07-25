@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 ERRORS=0
 node_modules/.bin/eslint . || ERRORS=1
