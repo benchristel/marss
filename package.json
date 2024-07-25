@@ -20,9 +20,10 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "build": "yarn test && yarn lint && rm -rf dist && tsc && yarn sys",
+    "build": "yarn test && yarn lint && rm -rf dist && tsc -p tsconfig.build.json && yarn sys",
     "fix": "devtools/format.sh",
     "test": "devtools/run-tests.js",
+    "sys": "devtools/run-tests.js system-tests/**/*.test.ts",
     "lint": "devtools/lint.sh",
     "ts": "tsc --watch --noEmit",
     "prepare": "husky"
