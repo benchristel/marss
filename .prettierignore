@@ -1,6 +1,4 @@
 dist
-docs
-.tsbuild
 *.js
 *.jsx
 *.ts
