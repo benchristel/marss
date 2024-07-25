@@ -20,9 +20,10 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
+    "build": "devtools/run-tests.js && tsc",
     "format": "devtools/format.sh",
     "test": "devtools/run-tests.js",
-    "ts": "yarn tsc --watch --noEmit",
+    "ts": "tsc --watch --noEmit",
     "prepare": "husky"
   }
 }
