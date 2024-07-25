@@ -20,7 +20,7 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "build": "yarn test && yarn lint && tsc",
+    "build": "yarn test && yarn lint && rm -rf dist && tsc && yarn sys",
     "fix": "devtools/format.sh",
     "test": "devtools/run-tests.js",
     "lint": "devtools/lint.sh",
