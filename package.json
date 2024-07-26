@@ -21,7 +21,7 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "build": "yarn test && yarn lint && rm -rf dist && tsc -p tsconfig.build.json && yarn sys",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "fix": "devtools/format.sh",
     "test": "devtools/run-tests.js",
     "sys": "devtools/run-tests.js system-tests/**/*.test.ts",
