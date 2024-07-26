@@ -24,7 +24,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "fix": "devtools/format.sh",
     "test": "devtools/run-tests.js",
-    "sys": "devtools/run-tests.js system-tests/**/*.test.ts",
+    "sys": "yarn build && devtools/run-tests.js system-tests/**/*.test.ts",
     "lint": "devtools/lint.sh",
     "ts": "tsc --watch --noEmit",
     "prepare": "husky"
