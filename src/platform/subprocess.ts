@@ -1,7 +1,9 @@
 declare const Bun: any
 
 export type Process = {
-    stdout: ReadableStream<string>;
+    success: boolean;
+    stdout: Buffer;
+    stderr: Buffer;
 }
 
 export function spawnSync(command: string, ...args: string[]): Process {

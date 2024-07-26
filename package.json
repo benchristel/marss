@@ -12,6 +12,7 @@
     "@benchristel/taste": "^0.5.0",
     "@eslint/js": "^9.7.0",
     "@stylistic/eslint-plugin": "^2.3.0",
+    "@types/node": "^20.14.12",
     "@typescript-eslint/parser": "^7.17.0",
     "eslint": "^9.7.0",
     "glob": "^11.0.0",
