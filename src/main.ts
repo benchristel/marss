@@ -6,13 +6,12 @@ const [inputPath, outputPath] = args
 
 const markdown = readFileSync(inputPath, "utf-8")
 
-const feed = parseMarkdownFeed(markdown)
-
-if (feed.errors().length) {
-    for (const error of feed.errors()) {
-        console.error(error)
+const feedResult = parseMarkdownFeed(markdown)
+if (! feedResult.ok) {
+    for (const message of feedResult.error) {
+        console.error(message)
     }
     process.exit(1)
+} else {
+    writeFileSync(outputPath, `<rss version="2.0">`, "utf-8")
 }
-
-writeFileSync(outputPath, `<rss version="2.0">`, "utf-8")
