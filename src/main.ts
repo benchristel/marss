@@ -7,7 +7,7 @@ const [inputPath, outputPath] = args
 const markdown = readFileSync(inputPath, "utf-8")
 
 const feedResult = parseMarkdownFeed(markdown)
-if (! feedResult.ok) {
+if (!feedResult.ok) {
     for (const message of feedResult.error) {
         console.error(message)
     }

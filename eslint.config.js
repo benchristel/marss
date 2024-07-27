@@ -86,7 +86,7 @@ const styleRules = {
     "@stylistic/space-before-function-paren": ["error", {anonymous: "always", named: "never", asyncArrow: "always"}],
     "@stylistic/space-in-parens": ["error", "never"],
     "@stylistic/space-infix-ops": "error",
-    "@stylistic/space-unary-ops": ["error", {words: false, nonwords: true}],
+    "@stylistic/space-unary-ops": ["error", {words: false, nonwords: false}],
     "@stylistic/spaced-comment": ["error", "always", {markers: ["/"]}],
     "@stylistic/switch-colon-spacing": "error",
     "@stylistic/template-curly-spacing": ["error", "never"],
