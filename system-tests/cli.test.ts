@@ -1,4 +1,4 @@
-import {test, expect, is, trimMargin} from "@benchristel/taste"
+import {test, expect, is, trimMargin, not} from "@benchristel/taste"
 import {Process, spawnSync} from "../src/platform/subprocess.js"
 import {existsSync, mkdtempSync, readFileSync, writeFileSync} from "fs"
 
@@ -66,6 +66,15 @@ test("marss, given empty Markdown input,", {
         const {stderr} = marss(`${dir}/input.md`, `${dir}/output.rss`)
 
         expect(stderr.toString(), is, `Required configuration fields are missing: title, description, link\n`)
+    },
+
+    "does not write the output file"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, "", "utf-8")
+
+        marss(`${dir}/input.md`, `${dir}/output.rss`)
+
+        expect(`${dir}/output.rss`, not(existsSync))
     },
 })
 
