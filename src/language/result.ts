@@ -14,3 +14,10 @@ export function ok<T>(value: T): Ok<T> {
 export function err<E>(error: E): Err<E> {
     return {ok: false, error}
 }
+
+export function unwrap<T, E>(result: Result<T, E>): T {
+    if (!result.ok) {
+        throw new Error(`Unwrap failed: ${result.error}`)
+    }
+    return result.value
+}
