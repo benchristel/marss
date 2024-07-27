@@ -18,8 +18,9 @@ class MarkdownFeed implements Feed {
     constructor(private markdown: string) {}
 
     errors(): string[] {
-        if (this.markdown === "") {
-            return ["Required configuration fields are missing: title, description, link"]
+        const missingConfigFields = this.missingConfigFields()
+        if (missingConfigFields.length) {
+            return ["Required configuration fields are missing: " + missingConfigFields.join(", ")]
         }
         return []
     }
@@ -47,5 +48,19 @@ class MarkdownFeed implements Feed {
 
     link(): string {
         return this.markdown.match(/link: ([^\n]+)/)?.[1] ?? ""
+    }
+
+    missingConfigFields() {
+        let missing = []
+        if (!this.title()) {
+            missing.push("title")
+        }
+        if (!this.description()) {
+            missing.push("description")
+        }
+        if (!this.link()) {
+            missing.push("link")
+        }
+        return missing
     }
 }
