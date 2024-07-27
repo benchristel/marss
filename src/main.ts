@@ -8,11 +8,12 @@ const markdown = readFileSync(inputPath, "utf-8")
 
 const feedResult = parseMarkdownFeed(markdown)
 if (!feedResult.ok) {
-    for (const message of feedResult.error) {
+    const {error: errors} = feedResult
+    for (const message of errors) {
         console.error(message)
     }
     process.exit(1)
-} else {
-    const {value: feed} = feedResult
-    writeFileSync(outputPath, feed.rss(), "utf-8")
 }
+
+const {value: feed} = feedResult
+writeFileSync(outputPath, feed.rss(), "utf-8")
