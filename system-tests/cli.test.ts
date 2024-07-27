@@ -1,5 +1,5 @@
 import {test, expect, is, trimMargin} from "@benchristel/taste"
-import {Process, spawnSync} from "../src/platform/subprocess"
+import {Process, spawnSync} from "../src/platform/subprocess.js"
 import {existsSync, mkdtempSync, readFileSync, writeFileSync} from "fs"
 
 function marss(...args: string[]): Process {
@@ -46,6 +46,26 @@ test("marss, given valid input,", {
         expect(`${dir}/output.rss`, existsSync)
         const feed = readFileSync(`${dir}/output.rss`, "utf-8")
         expect(feed, contains, `<rss version="2.0">`)
+    },
+})
+
+test("marss, given empty Markdown input,", {
+    "exits nonzero"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, "", "utf-8")
+
+        const {success} = marss(`${dir}/input.md`, `${dir}/output.rss`)
+
+        expect(success, is, false)
+    },
+
+    "logs an error"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, "", "utf-8")
+
+        const {stderr} = marss(`${dir}/input.md`, `${dir}/output.rss`)
+
+        expect(stderr.toString(), is, `Required configuration fields are missing: title, description, link\n`)
     },
 })
 
