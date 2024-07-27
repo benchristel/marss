@@ -41,3 +41,18 @@ import {FeedConfig} from "./feed-config.js"
         },
     })
 }
+
+{
+    const markdown = trimMargin`
+        <!--
+        title: The Title
+        description: The Description
+        link: https://foo.bar
+        -->`
+    const config = new FeedConfig(markdown)
+    test("FeedConfig, given a comment with no @marss directive,", {
+        "has null title"() {
+            expect(config.title(), is, null)
+        },
+    })
+}
