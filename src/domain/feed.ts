@@ -1,6 +1,6 @@
 import {trimMargin} from "@benchristel/taste"
 import {Result, err, ok} from "../language/result.js"
-import {FeedConfig} from "./feed-config.js"
+import {FeedConfig, parseFeedConfig} from "./feed-config.js"
 
 export interface Feed {
     rss(): string;
@@ -18,7 +18,7 @@ export function parseMarkdownFeed(markdown: string): Result<Feed, string[]> {
 class MarkdownFeed implements Feed {
     private config: FeedConfig
     constructor(private markdown: string) {
-        this.config = new FeedConfig(markdown)
+        this.config = parseFeedConfig(markdown)
     }
 
     errors(): string[] {
@@ -44,15 +44,15 @@ class MarkdownFeed implements Feed {
     }
 
     title(): string {
-        return this.config.title() ?? ""
+        return this.config.title ?? ""
     }
 
     description(): string {
-        return this.config.description() ?? ""
+        return this.config.description ?? ""
     }
 
     link(): string {
-        return this.config.link() ?? ""
+        return this.config.link ?? ""
     }
 
     missingConfigFields() {
