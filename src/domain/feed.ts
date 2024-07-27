@@ -1,6 +1,6 @@
 import {Result, err, ok} from "../language/result.js"
 
-interface Feed {
+export interface Feed {
     rss(): string;
 }
 
@@ -13,7 +13,7 @@ export function parseMarkdownFeed(markdown: string): Result<Feed, string[]> {
     }
 }
 
-class MarkdownFeed {
+class MarkdownFeed implements Feed {
     constructor(private markdown: string) {}
 
     errors(): string[] {
