@@ -13,5 +13,6 @@ if (! feedResult.ok) {
     }
     process.exit(1)
 } else {
-    writeFileSync(outputPath, `<rss version="2.0">`, "utf-8")
+    const {value: feed} = feedResult
+    writeFileSync(outputPath, feed.rss(), "utf-8")
 }

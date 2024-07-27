@@ -1,6 +1,10 @@
 import {Result, err, ok} from "../language/result.js"
 
-export function parseMarkdownFeed(markdown: string): Result<MarkdownFeed, string[]> {
+interface Feed {
+    rss(): string;
+}
+
+export function parseMarkdownFeed(markdown: string): Result<Feed, string[]> {
     const feed = new MarkdownFeed(markdown)
     if (feed.errors().length) {
         return err(feed.errors())
@@ -17,5 +21,9 @@ class MarkdownFeed {
             return ["Required configuration fields are missing: title, description, link"]
         }
         return []
+    }
+
+    rss(): string {
+        return `<rss version="2.0">`
     }
 }
