@@ -6,23 +6,44 @@ function marss(...args: string[]): Process {
     return spawnSync("node", "dist/main.js", ...args)
 }
 
-test("marss", {
-    "writes the requested RSS file"() {
-        const input = trimMargin`
-            <!--
-            @marss
-            title: A Cool Blog
-            link: https://example.com
-            description: this is the description
-            -->`
-        const dir = mkdtempSync("/tmp/marss-")
-        writeFileSync(`${dir}/input.md`, input, "utf-8")
+function createTempDir(): string {
+    return mkdtempSync("/tmp/marss-")
+}
 
-        const {success, stderr} = marss(`${dir}/input.md`, `${dir}/output.rss`)
+const minimalChannelConfig = trimMargin`
+    <!--
+    @marss
+    title: A Cool Blog
+    link: https://example.com
+    description: this is the description
+    -->`
+
+test("marss, given valid input,", {
+    "exits 0"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, minimalChannelConfig, "utf-8")
+
+        const {success} = marss(`${dir}/input.md`, `${dir}/output.rss`)
 
         expect(success, is, true)
+    },
+
+    "doesn't write to stderr"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, minimalChannelConfig, "utf-8")
+
+        const {stderr} = marss(`${dir}/input.md`, `${dir}/output.rss`)
+
         expect(stderr.toString(), is, "")
-        expect(existsSync(`${dir}/output.rss`), is, true)
+    },
+
+    "writes an RSS file"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, minimalChannelConfig, "utf-8")
+
+        marss(`${dir}/input.md`, `${dir}/output.rss`)
+
+        expect(`${dir}/output.rss`, existsSync)
         const feed = readFileSync(`${dir}/output.rss`, "utf-8")
         expect(feed, contains, `<rss version="2.0">`)
     },
