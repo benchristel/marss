@@ -1,8 +1,8 @@
-export function createFeed(markdown: string): Feed {
-    return new Feed(markdown)
+export function parseMarkdownFeed(markdown: string): MarkdownFeed {
+    return new MarkdownFeed(markdown)
 }
 
-class Feed {
+class MarkdownFeed {
     constructor(private markdown: string) {}
 
     errors(): string[] {
