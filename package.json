@@ -9,7 +9,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@benchristel/taste": "^0.5.0",
+    "@benchristel/taste": "^0.6.0",
     "@eslint/js": "^9.7.0",
     "@stylistic/eslint-plugin": "^2.3.0",
     "@types/node": "^20.14.12",
@@ -27,7 +27,8 @@
     "sys": "yarn build && devtools/run-tests.js system-tests/**/*.test.ts",
     "lint": "devtools/lint.sh",
     "ts": "tsc --watch --noEmit",
-    "verify": "yarn test && yarn tsc --noEmit && yarn sys && yarn lint",
+    "typecheck-once": "tsc --noEmit",
+    "verify": "yarn test && yarn typecheck-once && yarn sys && yarn lint",
     "prepare": "husky"
   }
 }

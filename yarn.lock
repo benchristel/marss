@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@benchristel/taste@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@benchristel/taste/-/taste-0.5.0.tgz#c595e9937cede23feaec3081f7333e6c766073c2"
-  integrity sha512-xr0QL76NohYOMG94O1Tr9N4piH3SzVztznbbZyUDZRZjivcqqUqVyBuQV/KvNUUg4dbntlMEAkidMLB9whHTIg==
+"@benchristel/taste@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@benchristel/taste/-/taste-0.6.0.tgz#c49819b72c1aa12251b93f239b1faf20f01a0303"
+  integrity sha512-+PNsgwYRKgZQLCUGFCGLRbPTIpJYsyhMr5935ZjEdWlAjm6N0aj0jd80uGqNSgLJOhlmGCQhrZyzhPfXHJTBwg==
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"
