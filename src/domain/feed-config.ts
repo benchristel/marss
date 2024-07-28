@@ -17,7 +17,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
     ;(marssComment(markdown) ?? "")
         .split("\n")
         .map(trim)
-        .map(parseLine)
+        .map(parseField)
         .filter(notNullish)
         .forEach(([key, value]) => {
             switch (key) {
@@ -35,6 +35,6 @@ export function parseFeedConfig(markdown: string): FeedConfig {
     return config
 }
 
-function parseLine(line: string): string[] | undefined {
+function parseField(line: string): string[] | undefined {
     return line.match(/^([a-zA-Z]+)\s*:\s*(.*)$/)?.slice(1)
 }
