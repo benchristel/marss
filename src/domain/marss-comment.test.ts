@@ -24,9 +24,9 @@ test("parsing a marss comment", {
 
     "succeeds when @marss is on its own line"() {
         const doc = trimMargin`
-        <!--
-        @marss
-        -->`
+            <!--
+            @marss
+            -->`
         expect(doc, hasMarssComment)
     },
 
@@ -37,19 +37,19 @@ test("parsing a marss comment", {
 
     "succeeds when config fields are present"() {
         const doc = trimMargin`
-      <!--
-      @marss
-      foo: bar
-      -->`
+            <!--
+            @marss
+            foo: bar
+            -->`
         expect(doc, hasMarssComment)
     },
 
     "succeeds when fields contain dashes"() {
         const doc = trimMargin`
-      <!--
-      @marss
-      foo: bar--baz
-      -->`
+            <!--
+            @marss
+            foo: bar--baz
+            -->`
         expect(doc, hasMarssComment)
     },
 
