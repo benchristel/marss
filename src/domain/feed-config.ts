@@ -24,6 +24,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         managingEditor: null,
         webMaster: null,
     }
+    let unrecognized: string[] = []
     ;(marssComment(markdown) ?? "")
         .split("\n")
         .map(trim)
@@ -55,9 +56,13 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                 case "webMaster":
                     config.webMaster = value
                     break
-                // TODO: throw on unrecognized keys, to catch misspellings
+                default:
+                    unrecognized.push(key)
             }
         })
+    if (unrecognized.length) {
+        console.warn("Warning: unrecognized configuration fields are present: " + unrecognized.join(", "))
+    }
     return config
 }
 

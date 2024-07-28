@@ -78,3 +78,26 @@ test("marss, given empty Markdown input,", {
         expect(`${dir}/output.rss`, not(existsSync))
     },
 })
+
+test("marss, given unrecognized config fields", {
+    "logs an error"() {
+        const dir = createTempDir()
+        const input = trimMargin`
+            # My Blog
+
+            <!--
+            @marss
+            title: My Blog
+            link: https://example.com
+            description: this is a description
+            foo: unrecognized
+            bar: unrecognized
+            -->
+            `
+        writeFileSync(`${dir}/input.md`, input, "utf-8")
+
+        const {stderr} = marss(`${dir}/input.md`, `${dir}/output.rss`)
+
+        expect(stderr.toString(), is, `Warning: unrecognized configuration fields are present: foo, bar\n`)
+    },
+})
