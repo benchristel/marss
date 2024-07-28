@@ -17,7 +17,7 @@ export function parseMarkdownFeed(markdown: string): Result<Feed, string[]> {
 
 class MarkdownFeed implements Feed {
     private config: FeedConfig
-    constructor(private markdown: string) {
+    constructor(markdown: string) {
         this.config = parseFeedConfig(markdown)
     }
 
