@@ -6,6 +6,7 @@ export type FeedConfig = {
     title: string | null;
     description: string | null;
     link: string | null;
+    language: string | null;
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
@@ -13,6 +14,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         title: null,
         description: null,
         link: null,
+        language: null,
     }
     ;(marssComment(markdown) ?? "")
         .split("\n")
@@ -29,6 +31,9 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                     break
                 case "link":
                     config.link = value
+                    break
+                case "language":
+                    config.language = value
                     break
             }
         })

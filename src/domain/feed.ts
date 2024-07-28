@@ -61,7 +61,9 @@ export class Feed {
     }
 
     private languageNode(): XmlNode[] {
-        return []
+        return this.config.language
+            ? [{language: this.config.language}]
+            : []
     }
 
     private items(): Item[] {
