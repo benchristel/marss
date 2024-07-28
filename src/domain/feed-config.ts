@@ -1,4 +1,5 @@
 import {notNullish} from "../language/nullish.js"
+import {trim} from "../language/strings.js"
 import {marssComment} from "./marss-comment.js"
 
 export type FeedConfig = {
@@ -15,6 +16,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
     }
     ;(marssComment(markdown) ?? "")
         .split("\n")
+        .map(trim)
         .map(parseLine)
         .filter(notNullish)
         .forEach(([key, value]) => {
@@ -34,5 +36,5 @@ export function parseFeedConfig(markdown: string): FeedConfig {
 }
 
 function parseLine(line: string): string[] | undefined {
-    return line.match(/^([a-zA-Z]+): (.*)$/)?.slice(1)
+    return line.match(/^([a-zA-Z]+)\s*:\s*(.*)$/)?.slice(1)
 }

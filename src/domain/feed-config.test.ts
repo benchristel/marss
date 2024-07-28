@@ -67,4 +67,54 @@ test("FeedConfig", {
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "description: 1")
     },
+
+    "removes leading whitespace from fields"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title:    \t blah
+            -->`
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "blah")
+    },
+
+    "parses fields with no space after the colon"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title:blah
+            -->`
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "blah")
+    },
+
+    "parses fields with extra space before the colon"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title  : blah
+            -->`
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "blah")
+    },
+
+    "parses indented fields"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+              \t title: blah
+            -->`
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "blah")
+    },
+
+    "ignores end-of-line whitespace"() {
+        const markdown = trimMargin(`
+            <!--
+            @marss
+            title: blah${"  "}
+            -->`)
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "blah")
+    },
 })
