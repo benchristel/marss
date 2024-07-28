@@ -82,7 +82,10 @@ export class Feed {
 
     private imageNode(): xml.XmlObject[] {
         return this.config.imageUrl
-            ? [{image: [{url: this.config.imageUrl}]}]
+            ? [{image: [
+                {url: this.config.imageUrl},
+                {title: this.config.title},
+            ]}]
             : []
     }
 

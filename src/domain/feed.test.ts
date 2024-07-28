@@ -1,6 +1,6 @@
 import {test, expect, is, trimMargin, equals, which} from "@benchristel/taste"
 import {Feed, splitDocumentIntoItems} from "./feed.js"
-import {contains} from "../language/strings.js"
+import {contains, containsIgnoringWhitespace} from "../language/strings.js"
 import {errorFrom} from "../lib/testing.test.js"
 import {MarssError} from "./marss-error.js"
 
@@ -60,15 +60,23 @@ test("a Markdown feed", {
 
             <!--
             @marss
-            title: a
+            title: The Blog of A Cool Website
             description: b
             link: c
             imageUrl: https://example.com/d.jpg
             -->
             `
         const rss = new Feed(markdown).rss()
-        expect(rss, contains, "<image>")
-        expect(rss, contains, "<url>https://example.com/d.jpg</url>")
+        expect(
+            rss,
+            containsIgnoringWhitespace,
+            `
+            <image>
+                <url>https://example.com/d.jpg</url>
+                <title>The Blog of A Cool Website</title>
+            </image>
+            `,
+        )
     },
 
     "generates a channel with no items given no level-2 headings"() {
