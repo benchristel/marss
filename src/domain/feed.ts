@@ -31,6 +31,10 @@ class MarkdownFeed implements Feed {
     }
 
     rss(): string {
+        const xmlConfig = {
+            declaration: true,
+            indent: "    ",
+        }
         // TODO: escape xml special characters
         return xml(
             {
@@ -45,7 +49,7 @@ class MarkdownFeed implements Feed {
                     },
                 ],
             },
-            {declaration: true, indent: "    "},
+            xmlConfig,
         )
     }
 
