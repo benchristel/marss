@@ -4,7 +4,7 @@ import {htmlFromMarkdown} from "../lib/markdown.js"
 import {parseDocument} from "htmlparser2"
 import render from "dom-serializer"
 import type {ChildNode} from "domhandler"
-import {innerText} from "domutils"
+import {getAttributeValue, innerText} from "domutils"
 import {MarssError} from "./marss-error.js"
 
 export interface Feed {
@@ -54,6 +54,7 @@ class MarkdownFeed implements Feed {
                                 item: [
                                     {title: item.title},
                                     {description: {_cdata: item.description}},
+                                    {guid: item.guid},
                                 ],
                             })),
                         ],
@@ -102,9 +103,11 @@ export function splitDocumentIntoItems(html: string): Item[] {
         switch (node.type) {
             case "tag":
                 if (node.name === "h2") {
+                    const title = innerText(node)
                     return {
-                        title: innerText(node),
+                        title,
                         description: render(getDescriptionNodes(node)).trim(),
+                        guid: getAttributeValue(node, "id") ?? title,
                     }
                 }
         }
@@ -129,4 +132,5 @@ function isH2(node: ChildNode): boolean {
 type Item = {
     title: string;
     description: string;
+    guid: string;
 }

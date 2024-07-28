@@ -1,4 +1,4 @@
-import {test, expect, is, trimMargin, equals} from "@benchristel/taste"
+import {test, expect, is, trimMargin, equals, which} from "@benchristel/taste"
 import {parseMarkdownFeed, splitDocumentIntoItems} from "./feed.js"
 
 test("a Markdown feed", {
@@ -79,6 +79,7 @@ test("a Markdown feed", {
                     <item>
                         <title>2012-12-21: The Long Count ends tonight!</title>
                         <description><![CDATA[<p>The Mayan calendar is officially over.</p>]]></description>
+                        <guid>2012-12-21-the-long-count-ends-tonight</guid>
                     </item>
                 </channel>
             </rss>
@@ -103,6 +104,7 @@ test("splitDocumentIntoItems", {
             {
                 title: "one",
                 description: "",
+                guid: which(isAnything),
             },
         ])
     },
@@ -113,6 +115,7 @@ test("splitDocumentIntoItems", {
             {
                 title: "one",
                 description: "",
+                guid: which(isAnything),
             },
         ])
     },
@@ -127,6 +130,7 @@ test("splitDocumentIntoItems", {
             {
                 title: "the title",
                 description: "<p>hello</p>\n<p>world</p>",
+                guid: which(isAnything),
             },
         ])
     },
@@ -142,11 +146,39 @@ test("splitDocumentIntoItems", {
             {
                 title: "one",
                 description: "<p>hello</p>",
+                guid: which(isAnything),
             },
             {
                 title: "two",
                 description: "<p>world</p>",
+                guid: which(isAnything),
+            },
+        ])
+    },
+
+    "bases an item's guid on its heading id"() {
+        const html = `<h2 id="foo">blah</h2>`
+        expect(splitDocumentIntoItems(html), equals, [
+            {
+                title: "blah",
+                description: "",
+                guid: "foo",
+            },
+        ])
+    },
+
+    "uses the title as the guid if the heading has no id"() {
+        const html = `<h2>blah</h2>`
+        expect(splitDocumentIntoItems(html), equals, [
+            {
+                title: "blah",
+                description: "",
+                guid: "blah",
             },
         ])
     },
 })
+
+function isAnything() {
+    return true
+}
