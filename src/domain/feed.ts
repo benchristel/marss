@@ -7,33 +7,15 @@ import type {ChildNode} from "domhandler"
 import {getAttributeValue, innerText} from "domutils"
 import {MarssError} from "./marss-error.js"
 
-export interface Feed {
-    rss(): string;
-}
-
-export function parseMarkdownFeed(markdown: string): Feed {
-    const feed = new MarkdownFeed(markdown)
-    if (feed.errors().length) {
-        throw new MarssError(feed.errors().join("\n"))
-    } else {
-        return feed
-    }
-}
-
-class MarkdownFeed implements Feed {
+export class Feed {
     private config: FeedConfig
     private html: string
     constructor(markdown: string) {
         this.config = parseFeedConfig(markdown)
         this.html = htmlFromMarkdown(markdown)
-    }
-
-    errors(): string[] {
-        const missingConfigFields = this.missingConfigFields()
-        if (missingConfigFields.length) {
-            return ["Required configuration fields are missing: " + missingConfigFields.join(", ")]
+        if (this.errors().length) {
+            throw new MarssError(this.errors().join("\n"))
         }
-        return []
     }
 
     rss(): string {
@@ -65,23 +47,31 @@ class MarkdownFeed implements Feed {
         )
     }
 
-    title(): string {
+    private title(): string {
         return this.config.title ?? ""
     }
 
-    description(): string {
+    private description(): string {
         return this.config.description ?? ""
     }
 
-    link(): string {
+    private link(): string {
         return this.config.link ?? ""
     }
 
-    items(): Item[] {
+    private items(): Item[] {
         return splitDocumentIntoItems(this.html)
     }
 
-    missingConfigFields() {
+    private errors(): string[] {
+        const missingConfigFields = this.missingConfigFields()
+        if (missingConfigFields.length) {
+            return ["Required configuration fields are missing: " + missingConfigFields.join(", ")]
+        }
+        return []
+    }
+
+    private missingConfigFields() {
         let missing = []
         if (!this.title()) {
             missing.push("title")
