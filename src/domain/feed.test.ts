@@ -1,5 +1,6 @@
 import {test, expect, is, trimMargin, equals, which} from "@benchristel/taste"
 import {Feed, splitDocumentIntoItems} from "./feed.js"
+import {contains} from "../language/strings.js"
 
 test("a Markdown feed", {
     "generates a channel with no items given no level-2 headings"() {
@@ -84,6 +85,27 @@ test("a Markdown feed", {
                 </channel>
             </rss>
             `)
+    },
+
+    "escapes ]]> when CDATA is used"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: feed title
+            description: feed description
+            link: https://example.com
+            -->
+
+            ## item
+
+            ]]>
+            `
+
+        const rss = new Feed(markdown).rss()
+
+        expect(rss, contains, `<description><![CDATA[<p>]]&gt;</p>]]></description>`)
     },
 })
 
