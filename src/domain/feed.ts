@@ -1,5 +1,4 @@
 import xml from "xml"
-import {trimMargin} from "@benchristel/taste"
 import {Result, err, ok} from "../language/result.js"
 import {FeedConfig, parseFeedConfig} from "./feed-config.js"
 
