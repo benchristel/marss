@@ -1,8 +1,27 @@
 import {test, expect, is, trimMargin, equals, which} from "@benchristel/taste"
 import {Feed, splitDocumentIntoItems} from "./feed.js"
 import {contains} from "../language/strings.js"
+import {errorFrom} from "../lib/testing.test.js"
+import {MarssError} from "./marss-error.js"
 
 test("a Markdown feed", {
+    "throws an error if no title is given"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            description: this is a description
+            link: https://example.com
+            -->
+            `
+        expect(
+            errorFrom(() => new Feed(markdown)),
+            equals,
+            new MarssError("Required configuration fields are missing: title"),
+        )
+    },
+
     "generates a channel with no items given no level-2 headings"() {
         const markdown = trimMargin`
             # A Cool Website
