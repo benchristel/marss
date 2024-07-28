@@ -61,8 +61,8 @@ test("a Markdown feed", {
             <!--
             @marss
             title: The Blog of A Cool Website
-            description: b
-            link: c
+            description: whatever
+            link: https://benchristel.com
             imageUrl: https://example.com/d.jpg
             -->
             `
@@ -74,6 +74,7 @@ test("a Markdown feed", {
             <image>
                 <url>https://example.com/d.jpg</url>
                 <title>The Blog of A Cool Website</title>
+                <link>https://benchristel.com</link>
             </image>
             `,
         )

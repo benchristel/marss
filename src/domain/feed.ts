@@ -85,6 +85,7 @@ export class Feed {
             ? [{image: [
                 {url: this.config.imageUrl},
                 {title: this.config.title},
+                {link: this.config.link},
             ]}]
             : []
     }
