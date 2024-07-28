@@ -1,3 +1,4 @@
+import xml from "xml"
 import {trimMargin} from "@benchristel/taste"
 import {Result, err, ok} from "../language/result.js"
 import {FeedConfig, parseFeedConfig} from "./feed-config.js"
@@ -31,16 +32,21 @@ class MarkdownFeed implements Feed {
 
     rss(): string {
         // TODO: escape xml special characters
-        return trimMargin(`
-            <?xml version="1.0"?>
-            <rss version="2.0">
-                <channel>
-                    <title>${this.title()}</title>
-                    <description>${this.description()}</description>
-                    <link>${this.link()}</link>
-                </channel>
-            </rss>
-            `)
+        return xml(
+            {
+                rss: [
+                    {_attr: {version: "2.0"}},
+                    {
+                        channel: [
+                            {title: this.title()},
+                            {description: this.description()},
+                            {link: this.link()},
+                        ],
+                    },
+                ],
+            },
+            {declaration: true, indent: "    "},
+        )
     }
 
     title(): string {

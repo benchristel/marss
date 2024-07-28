@@ -18,7 +18,7 @@ test("a Markdown feed", {
         const rss = unwrap(parseMarkdownFeed(markdown)).rss()
 
         expect(rss, is, trimMargin`
-            <?xml version="1.0"?>
+            <?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0">
                 <channel>
                     <title>Recent Updates to A Cool Website</title>
