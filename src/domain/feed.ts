@@ -34,6 +34,7 @@ export class Feed {
                             ...this.linkNode(),
                             ...this.languageNode(),
                             ...this.copyrightNode(),
+                            ...this.imageNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -49,33 +50,39 @@ export class Feed {
         )
     }
 
-    private titleNode(): XmlNode[] {
+    private titleNode(): xml.XmlObject[] {
         return this.config.title
             ? [{title: this.config.title}]
             : []
     }
 
-    private descriptionNode(): XmlNode[] {
+    private descriptionNode(): xml.XmlObject[] {
         return this.config.description
             ? [{description: this.config.description}]
             : []
     }
 
-    private linkNode(): XmlNode[] {
+    private linkNode(): xml.XmlObject[] {
         return this.config.link
             ? [{link: this.config.link}]
             : []
     }
 
-    private languageNode(): XmlNode[] {
+    private languageNode(): xml.XmlObject[] {
         return this.config.language
             ? [{language: this.config.language}]
             : []
     }
 
-    private copyrightNode(): XmlNode[] {
+    private copyrightNode(): xml.XmlObject[] {
         return this.config.copyright
             ? [{copyright: this.config.copyright}]
+            : []
+    }
+
+    private imageNode(): xml.XmlObject[] {
+        return this.config.imageUrl
+            ? [{image: [{url: this.config.imageUrl}]}]
             : []
     }
 
@@ -144,5 +151,3 @@ type Item = {
     description: string;
     guid: string;
 }
-
-type XmlNode = Record<string, string>

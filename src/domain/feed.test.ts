@@ -34,7 +34,8 @@ test("a Markdown feed", {
             language: en-us
             -->
             `
-        expect(new Feed(markdown).rss(), contains, "<language>en-us</language>")
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<language>en-us</language>")
     },
 
     "includes <copyright> if configured"() {
@@ -49,7 +50,25 @@ test("a Markdown feed", {
             copyright: blah
             -->
             `
-        expect(new Feed(markdown).rss(), contains, "<copyright>blah</copyright>")
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<copyright>blah</copyright>")
+    },
+
+    "includes <image> if imageUrl is configured"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: a
+            description: b
+            link: c
+            imageUrl: https://example.com/d.jpg
+            -->
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<image>")
+        expect(rss, contains, "<url>https://example.com/d.jpg</url>")
     },
 
     "generates a channel with no items given no level-2 headings"() {
