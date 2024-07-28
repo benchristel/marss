@@ -1,19 +1,23 @@
 import {readFileSync, writeFileSync} from "fs"
 import {parseMarkdownFeed} from "./domain/feed.js"
+import {MarssError} from "./domain/marss-error.js"
 
 const args = process.argv.slice(2)
 const [inputPath, outputPath] = args
 
 const markdown = readFileSync(inputPath, "utf-8")
 
-const feedResult = parseMarkdownFeed(markdown)
-if (!feedResult.ok) {
-    const {error: errors} = feedResult
-    for (const message of errors) {
-        console.error(message)
+const feed = (() => {
+    try {
+        return parseMarkdownFeed(markdown)
+    } catch (e) {
+        if (e instanceof MarssError) {
+            console.error(e.message)
+            process.exit(1)
+        } else {
+            throw e
+        }
     }
-    process.exit(1)
-}
+})()
 
-const {value: feed} = feedResult
 writeFileSync(outputPath, feed.rss(), "utf-8")

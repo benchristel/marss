@@ -1,6 +1,5 @@
 import {test, expect, is, trimMargin, equals} from "@benchristel/taste"
 import {parseMarkdownFeed, splitDocumentIntoItems} from "./feed.js"
-import {unwrap} from "../language/result.js"
 
 test("a Markdown feed", {
     "generates a channel with no items given no level-2 headings"() {
@@ -15,7 +14,7 @@ test("a Markdown feed", {
             -->
             `
 
-        const rss = unwrap(parseMarkdownFeed(markdown)).rss()
+        const rss = parseMarkdownFeed(markdown).rss()
 
         expect(rss, is, trimMargin`
             <?xml version="1.0" encoding="UTF-8"?>
@@ -38,7 +37,7 @@ test("a Markdown feed", {
             -->
             `
 
-        const rss = unwrap(parseMarkdownFeed(markdown)).rss()
+        const rss = parseMarkdownFeed(markdown).rss()
 
         expect(rss, is, trimMargin`
             <?xml version="1.0" encoding="UTF-8"?>
@@ -68,7 +67,7 @@ test("a Markdown feed", {
             The Mayan calendar is officially over.
             `
 
-        const rss = unwrap(parseMarkdownFeed(markdown)).rss()
+        const rss = parseMarkdownFeed(markdown).rss()
 
         expect(rss, is, trimMargin`
             <?xml version="1.0" encoding="UTF-8"?>

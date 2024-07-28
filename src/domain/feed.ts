@@ -1,22 +1,22 @@
 import xml from "xml"
-import {Result, err, ok} from "../language/result.js"
 import {FeedConfig, parseFeedConfig} from "./feed-config.js"
 import {htmlFromMarkdown} from "../lib/markdown.js"
 import {parseDocument} from "htmlparser2"
 import render from "dom-serializer"
 import type {ChildNode} from "domhandler"
 import {innerText} from "domutils"
+import {MarssError} from "./marss-error.js"
 
 export interface Feed {
     rss(): string;
 }
 
-export function parseMarkdownFeed(markdown: string): Result<Feed, string[]> {
+export function parseMarkdownFeed(markdown: string): Feed {
     const feed = new MarkdownFeed(markdown)
     if (feed.errors().length) {
-        return err(feed.errors())
+        throw new MarssError(feed.errors().join("\n"))
     } else {
-        return ok(feed)
+        return feed
     }
 }
 
