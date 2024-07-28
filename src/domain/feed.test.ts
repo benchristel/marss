@@ -37,6 +37,21 @@ test("a Markdown feed", {
         expect(new Feed(markdown).rss(), contains, "<language>en-us</language>")
     },
 
+    "includes <copyright> if configured"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: a
+            description: b
+            link: c
+            copyright: blah
+            -->
+            `
+        expect(new Feed(markdown).rss(), contains, "<copyright>blah</copyright>")
+    },
+
     "generates a channel with no items given no level-2 headings"() {
         const markdown = trimMargin`
             # A Cool Website

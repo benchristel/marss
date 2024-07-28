@@ -96,7 +96,6 @@ yarn build
 
 - Add these channel-level attributes:
   ```
-  copyright: Copyright 1926-2024, Edward Bear
   imageUrl: https://example.com/88x31.gif
   managingEditor: pooh@100acre.wood (Edward Bear)
   webMaster: cr@100acre.wood (Christopher Robin)

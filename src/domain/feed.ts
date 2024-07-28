@@ -33,6 +33,7 @@ export class Feed {
                             ...this.descriptionNode(),
                             ...this.linkNode(),
                             ...this.languageNode(),
+                            ...this.copyrightNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -69,6 +70,12 @@ export class Feed {
     private languageNode(): XmlNode[] {
         return this.config.language
             ? [{language: this.config.language}]
+            : []
+    }
+
+    private copyrightNode(): XmlNode[] {
+        return this.config.copyright
+            ? [{copyright: this.config.copyright}]
             : []
     }
 
