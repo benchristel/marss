@@ -29,9 +29,10 @@ export class Feed {
                     {_attr: {version: "2.0"}},
                     {
                         channel: [
-                            {title: this.title()},
-                            {description: this.description()},
-                            {link: this.link()},
+                            ...this.titleNode(),
+                            ...this.descriptionNode(),
+                            ...this.linkNode(),
+                            ...this.languageNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -47,16 +48,20 @@ export class Feed {
         )
     }
 
-    private title(): string {
-        return this.config.title ?? ""
+    private titleNode(): XmlNode[] {
+        return [{title: this.config.title ?? ""}]
     }
 
-    private description(): string {
-        return this.config.description ?? ""
+    private descriptionNode(): XmlNode[] {
+        return [{description: this.config.description ?? ""}]
     }
 
-    private link(): string {
-        return this.config.link ?? ""
+    private linkNode(): XmlNode[] {
+        return [{link: this.config.link ?? ""}]
+    }
+
+    private languageNode(): XmlNode[] {
+        return []
     }
 
     private items(): Item[] {
@@ -73,13 +78,13 @@ export class Feed {
 
     private missingConfigFields() {
         let missing = []
-        if (!this.title()) {
+        if (!this.config.title) {
             missing.push("title")
         }
-        if (!this.description()) {
+        if (!this.config.description) {
             missing.push("description")
         }
-        if (!this.link()) {
+        if (!this.config.link) {
             missing.push("link")
         }
         return missing
@@ -124,3 +129,5 @@ type Item = {
     description: string;
     guid: string;
 }
+
+type XmlNode = Record<string, string>
