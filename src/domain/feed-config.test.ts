@@ -56,3 +56,15 @@ import {parseFeedConfig} from "./feed-config.js"
         },
     })
 }
+
+test("FeedConfig", {
+    "parses a title that contains 'description:'"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title: description: 1
+            -->`
+        const config = parseFeedConfig(markdown)
+        expect(config.title, is, "description: 1")
+    },
+})

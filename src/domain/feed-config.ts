@@ -7,11 +7,35 @@ export type FeedConfig = {
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
-    const comment = marssComment(markdown) ?? ""
-    return {
-        title: comment.match(/title: ([^\n]+)/)?.[1] ?? null,
-        description: comment.match(/description: ([^\n]+)/)?.[1] ?? null,
-        link: comment.match(/link: ([^\n]+)/)?.[1] ?? null,
+    const config: FeedConfig = {
+        title: null,
+        description: null,
+        link: null,
     }
+    ;(marssComment(markdown) ?? "")
+        .split("\n")
+        .map(parseLine)
+        .filter(notNull)
+        .forEach(([key, value]) => {
+            switch (key) {
+                case "title":
+                    config.title = value
+                    break
+                case "description":
+                    config.description = value
+                    break
+                case "link":
+                    config.link = value
+                    break
+            }
+        })
+    return config
+}
 
+function parseLine(line: string): string[] | undefined {
+    return line.match(/^([a-zA-Z]+): (.*)$/)?.slice(1)
+}
+
+function notNull<T>(x: T | null | undefined): x is T {
+    return x != null
 }
