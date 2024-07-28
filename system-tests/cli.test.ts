@@ -1,6 +1,7 @@
 import {test, expect, is, trimMargin, not} from "@benchristel/taste"
 import {Process, spawnSync} from "../src/platform/subprocess.js"
 import {existsSync, mkdtempSync, readFileSync, writeFileSync} from "fs"
+import {contains} from "../src/language/strings.js"
 
 function marss(...args: string[]): Process {
     return spawnSync("node", "dist/main.js", ...args)
@@ -77,7 +78,3 @@ test("marss, given empty Markdown input,", {
         expect(`${dir}/output.rss`, not(existsSync))
     },
 })
-
-function contains(needle: string, haystack: string): boolean {
-    return haystack.includes(needle)
-}
