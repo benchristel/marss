@@ -36,6 +36,7 @@ export class Feed {
                             ...this.copyrightNode(),
                             ...this.imageNode(),
                             ...this.managingEditorNode(),
+                            ...this.webMasterNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -94,6 +95,12 @@ export class Feed {
     private managingEditorNode(): xml.XmlObject[] {
         return this.config.managingEditor
             ? [{managingEditor: this.config.managingEditor}]
+            : []
+    }
+
+    private webMasterNode(): xml.XmlObject[] {
+        return this.config.webMaster
+            ? [{webMaster: this.config.webMaster}]
             : []
     }
 

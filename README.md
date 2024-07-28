@@ -96,7 +96,6 @@ yarn build
 
 - Add these channel-level attributes:
   ```
-  webMaster: cr@100acre.wood (Christopher Robin)
   ttl: 3600
   ```
 - Parse dates from headings and set `pubDate`

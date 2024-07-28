@@ -10,6 +10,7 @@ export type FeedConfig = {
     copyright: string | null;
     imageUrl: string | null;
     managingEditor: string | null;
+    webMaster: string | null;
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
@@ -21,6 +22,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         copyright: null,
         imageUrl: null,
         managingEditor: null,
+        webMaster: null,
     }
     ;(marssComment(markdown) ?? "")
         .split("\n")
@@ -50,6 +52,10 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                 case "managingEditor":
                     config.managingEditor = value
                     break
+                case "webMaster":
+                    config.webMaster = value
+                    break
+                // TODO: throw on unrecognized keys, to catch misspellings
             }
         })
     return config

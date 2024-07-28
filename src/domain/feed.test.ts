@@ -89,11 +89,27 @@ test("a Markdown feed", {
             title: The Blog of A Cool Website
             description: whatever
             link: https://benchristel.com
-            managingEditor: Ben Christel
+            managingEditor: editor@benchristel.com (Ben Christel)
             -->
             `
         const rss = new Feed(markdown).rss()
-        expect(rss, contains, "<managingEditor>Ben Christel</managingEditor>")
+        expect(rss, contains, "<managingEditor>editor@benchristel.com (Ben Christel)</managingEditor>")
+    },
+
+    "includes <webMaster> if configured"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: The Blog of A Cool Website
+            description: whatever
+            link: https://benchristel.com
+            webMaster: webmaster@benchristel.com (Ben Christel)
+            -->
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<webMaster>webmaster@benchristel.com (Ben Christel)</webMaster>")
     },
 
     "generates a channel with no items given no level-2 headings"() {
