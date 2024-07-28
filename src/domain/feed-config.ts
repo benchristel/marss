@@ -11,6 +11,7 @@ export type FeedConfig = {
     imageUrl: string | null;
     managingEditor: string | null;
     webMaster: string | null;
+    ttl: string | null;
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
@@ -23,6 +24,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         imageUrl: null,
         managingEditor: null,
         webMaster: null,
+        ttl: null,
     }
     let unrecognized: string[] = []
     ;(marssComment(markdown) ?? "")
@@ -55,6 +57,9 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                     break
                 case "webMaster":
                     config.webMaster = value
+                    break
+                case "ttl":
+                    config.ttl = value
                     break
                 default:
                     unrecognized.push(key)

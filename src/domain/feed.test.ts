@@ -112,6 +112,22 @@ test("a Markdown feed", {
         expect(rss, contains, "<webMaster>webmaster@benchristel.com (Ben Christel)</webMaster>")
     },
 
+    "includes <ttl> if configured"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: The Blog of A Cool Website
+            description: whatever
+            link: https://benchristel.com
+            ttl: 600
+            -->
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<ttl>600</ttl>")
+    },
+
     "generates a channel with no items given no level-2 headings"() {
         const markdown = trimMargin`
             # A Cool Website

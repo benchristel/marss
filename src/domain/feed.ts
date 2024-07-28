@@ -37,6 +37,7 @@ export class Feed {
                             ...this.imageNode(),
                             ...this.managingEditorNode(),
                             ...this.webMasterNode(),
+                            ...this.ttlNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -101,6 +102,12 @@ export class Feed {
     private webMasterNode(): xml.XmlObject[] {
         return this.config.webMaster
             ? [{webMaster: this.config.webMaster}]
+            : []
+    }
+
+    private ttlNode(): xml.XmlObject[] {
+        return this.config.ttl
+            ? [{ttl: this.config.ttl}]
             : []
     }
 

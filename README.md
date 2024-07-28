@@ -94,10 +94,6 @@ yarn build
 
 ### TODO
 
-- Add these channel-level attributes:
-  ```
-  ttl: 3600
-  ```
 - Parse dates from headings and set `pubDate`
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
