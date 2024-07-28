@@ -49,15 +49,21 @@ export class Feed {
     }
 
     private titleNode(): XmlNode[] {
-        return [{title: this.config.title ?? ""}]
+        return this.config.title
+            ? [{title: this.config.title}]
+            : []
     }
 
     private descriptionNode(): XmlNode[] {
-        return [{description: this.config.description ?? ""}]
+        return this.config.description
+            ? [{description: this.config.description}]
+            : []
     }
 
     private linkNode(): XmlNode[] {
-        return [{link: this.config.link ?? ""}]
+        return this.config.link
+            ? [{link: this.config.link}]
+            : []
     }
 
     private languageNode(): XmlNode[] {
