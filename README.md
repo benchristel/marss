@@ -62,4 +62,49 @@ the heading, in the format `YYYY-MM-DD`, it will be used as the publication
 date of that item. Marss assumes that level-2 headings are unique within the
 feed, and may do awkward things if it encounters duplicate headings.
 
-The markdown parser used is [`marked`](https://marked.js.org).
+The markdown parser used is [`marked`](https://marked.js.org), with these
+plugins:
+
+- `marked-gfm-heading-id`
+
+## Development
+
+<details>
+<summary>This section is about working on the code for marss.</summary>
+
+Opening the repo in VS Code will automatically run the typechecker and display errors
+in the problems pane.
+
+```bash
+# typecheck in watch mode. You don't need to run this manually if you use VS Code.
+yarn ts
+# run unit tests
+yarn test
+# run system tests
+yarn sys
+# check formatting
+yarn lint
+# fix formatting
+yarn fix
+# run all checks (do this before you git push)
+yarn verify
+# compile to JS in dist/
+yarn build
+```
+
+### TODO
+
+- Add these channel-level attributes:
+  ```
+  language: en-us
+  copyright: Copyright 1926-2024, Edward Bear
+  imageUrl: https://example.com/88x31.gif
+  managingEditor: pooh@100acre.wood (Edward Bear)
+  webMaster: cr@100acre.wood (Christopher Robin)
+  ttl: 3600
+  ```
+- Parse dates from headings and set `pubDate`
+- Generate HTML changelogs
+- Add `location` config field and add links to headings
+
+</details>
