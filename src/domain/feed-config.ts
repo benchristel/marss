@@ -9,6 +9,7 @@ export type FeedConfig = {
     language: string | null;
     copyright: string | null;
     imageUrl: string | null;
+    managingEditor: string | null;
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
@@ -19,6 +20,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         language: null,
         copyright: null,
         imageUrl: null,
+        managingEditor: null,
     }
     ;(marssComment(markdown) ?? "")
         .split("\n")
@@ -44,6 +46,9 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                     break
                 case "imageUrl":
                     config.imageUrl = value
+                    break
+                case "managingEditor":
+                    config.managingEditor = value
                     break
             }
         })

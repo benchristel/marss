@@ -80,6 +80,22 @@ test("a Markdown feed", {
         )
     },
 
+    "includes <managingEditor> if configured"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: The Blog of A Cool Website
+            description: whatever
+            link: https://benchristel.com
+            managingEditor: Ben Christel
+            -->
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, "<managingEditor>Ben Christel</managingEditor>")
+    },
+
     "generates a channel with no items given no level-2 headings"() {
         const markdown = trimMargin`
             # A Cool Website

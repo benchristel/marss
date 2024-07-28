@@ -35,6 +35,7 @@ export class Feed {
                             ...this.languageNode(),
                             ...this.copyrightNode(),
                             ...this.imageNode(),
+                            ...this.managingEditorNode(),
                             ...this.items().map((item) => ({
                                 item: [
                                     {title: item.title},
@@ -87,6 +88,12 @@ export class Feed {
                 {title: this.config.title},
                 {link: this.config.link},
             ]}]
+            : []
+    }
+
+    private managingEditorNode(): xml.XmlObject[] {
+        return this.config.managingEditor
+            ? [{managingEditor: this.config.managingEditor}]
             : []
     }
 
