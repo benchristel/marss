@@ -28,4 +28,27 @@ test("a Markdown feed", {
             </rss>
             `)
     },
+
+    "escapes XML in the channel metadata"() {
+        const markdown = trimMargin`
+            <!--@marss
+            title: <3 &
+            description: >>>
+            link: "wow"
+            -->
+            `
+
+        const rss = unwrap(parseMarkdownFeed(markdown)).rss()
+
+        expect(rss, is, trimMargin`
+            <?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0">
+                <channel>
+                    <title>&lt;3 &amp;</title>
+                    <description>&gt;&gt;&gt;</description>
+                    <link>&quot;wow&quot;</link>
+                </channel>
+            </rss>
+            `)
+    },
 })

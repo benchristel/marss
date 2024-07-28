@@ -35,7 +35,6 @@ class MarkdownFeed implements Feed {
             declaration: true,
             indent: "    ",
         }
-        // TODO: escape xml special characters
         return xml(
             {
                 rss: [
