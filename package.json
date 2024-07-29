@@ -2,7 +2,11 @@
   "name": "marss",
   "version": "0.0.0",
   "description": "Markdown-to-RSS converter",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "bin": "dist/main.js",
   "type": "module",
   "repository": "https://github.com/benchristel/marss",
   "author": "Ben Christel",
