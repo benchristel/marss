@@ -97,5 +97,6 @@ yarn build
 - Parse dates from headings and set `pubDate`
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
+- let user configure a timezone for dates
 
 </details>

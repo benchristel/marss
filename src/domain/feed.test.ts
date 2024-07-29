@@ -206,6 +206,7 @@ test("a Markdown feed", {
                         <title>2012-12-21: The Long Count ends tonight!</title>
                         <description><![CDATA[<p>The Mayan calendar is officially over.</p>]]></description>
                         <guid>2012-12-21-the-long-count-ends-tonight</guid>
+                        <pubDate>Fri, 21 Dec 2012 00:00:00 +0000</pubDate>
                     </item>
                 </channel>
             </rss>

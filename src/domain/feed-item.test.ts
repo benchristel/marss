@@ -19,6 +19,7 @@ test("splitDocumentIntoItems", {
                 title: "one",
                 description: "",
                 guid: which(isAnything),
+                pubDate: null,
             },
         ])
     },
@@ -30,6 +31,7 @@ test("splitDocumentIntoItems", {
                 title: "one",
                 description: "",
                 guid: which(isAnything),
+                pubDate: null,
             },
         ])
     },
@@ -45,6 +47,7 @@ test("splitDocumentIntoItems", {
                 title: "the title",
                 description: "<p>hello</p>\n<p>world</p>",
                 guid: which(isAnything),
+                pubDate: null,
             },
         ])
     },
@@ -61,11 +64,13 @@ test("splitDocumentIntoItems", {
                 title: "one",
                 description: "<p>hello</p>",
                 guid: which(isAnything),
+                pubDate: null,
             },
             {
                 title: "two",
                 description: "<p>world</p>",
                 guid: which(isAnything),
+                pubDate: null,
             },
         ])
     },
@@ -77,6 +82,7 @@ test("splitDocumentIntoItems", {
                 title: "blah",
                 description: "",
                 guid: "foo",
+                pubDate: null,
             },
         ])
     },
@@ -88,8 +94,14 @@ test("splitDocumentIntoItems", {
                 title: "blah",
                 description: "",
                 guid: "blah",
+                pubDate: null,
             },
         ])
+    },
+
+    "parses a date out of the heading"() {
+        const html = `<h2>2012-12-21</h2>`
+        expect(splitDocumentIntoItems(html)[0]?.pubDate, equals, "Fri, 21 Dec 2012 00:00:00 +0000")
     },
 })
 

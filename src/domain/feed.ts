@@ -40,6 +40,7 @@ export class Feed {
                                     {title: item.title},
                                     {description: {_cdata: item.description}},
                                     {guid: item.guid},
+                                    ...this.pubDateNode(item),
                                 ],
                             })),
                         ],
@@ -105,6 +106,12 @@ export class Feed {
     private ttlNode(): xml.XmlObject[] {
         return this.config.ttl
             ? [{ttl: this.config.ttl}]
+            : []
+    }
+
+    private pubDateNode(item: Item): xml.XmlObject[] {
+        return item.pubDate
+            ? [{pubDate: item.pubDate}]
             : []
     }
 
