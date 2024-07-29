@@ -94,7 +94,8 @@ yarn build
 
 ### TODO
 
-- Parse dates from headings and set `pubDate`
+- separate RSS view from Feed model
+- test that lines in the @marss comment that aren't formatted as fields are ignored
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
 - let user configure a timezone for dates
