@@ -94,7 +94,8 @@ yarn build
 
 ### TODO
 
-- separate RSS view from Feed model
+- move tests for RSS rendering to `rss-feed-renderer.test.ts`
+- move feed config validation to parseFeedConfig, and tighten up the FeedConfig type
 - test that lines in the @marss comment that aren't formatted as fields are ignored
 - Generate HTML changelogs
 - Add `location` config field and add links to headings

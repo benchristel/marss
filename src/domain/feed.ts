@@ -3,6 +3,8 @@ import {FeedConfig, parseFeedConfig} from "./feed-config.js"
 import {htmlFromMarkdown} from "../lib/markdown.js"
 import {MarssError} from "./marss-error.js"
 import {Item, splitDocumentIntoItems} from "./feed-item.js"
+import {FeedPresentation} from "./feed-presentation.js"
+import {RssFeedRenderer} from "./rss-feed-renderer.js"
 
 export class Feed {
     private config: FeedConfig
@@ -16,103 +18,17 @@ export class Feed {
     }
 
     rss(): string {
-        const xmlConfig = {
-            declaration: true,
-            indent: "    ",
+        return new RssFeedRenderer(this.present()).render()
+    }
+
+    private present(): FeedPresentation {
+        return {
+            ...this.config,
+            title: this.config.title ?? "",
+            description: this.config.description ?? "",
+            link: this.config.link ?? "",
+            items: this.items(),
         }
-        return xml(
-            {
-                rss: [
-                    {_attr: {version: "2.0"}},
-                    {
-                        channel: [
-                            ...this.titleNode(),
-                            ...this.descriptionNode(),
-                            ...this.linkNode(),
-                            ...this.languageNode(),
-                            ...this.copyrightNode(),
-                            ...this.imageNode(),
-                            ...this.managingEditorNode(),
-                            ...this.webMasterNode(),
-                            ...this.ttlNode(),
-                            ...this.items().map((item) => ({
-                                item: [
-                                    {title: item.title},
-                                    {description: {_cdata: item.description}},
-                                    {guid: item.guid},
-                                    ...this.pubDateNode(item),
-                                ],
-                            })),
-                        ],
-                    },
-                ],
-            },
-            xmlConfig,
-        )
-    }
-
-    private titleNode(): xml.XmlObject[] {
-        return this.config.title
-            ? [{title: this.config.title}]
-            : []
-    }
-
-    private descriptionNode(): xml.XmlObject[] {
-        return this.config.description
-            ? [{description: this.config.description}]
-            : []
-    }
-
-    private linkNode(): xml.XmlObject[] {
-        return this.config.link
-            ? [{link: this.config.link}]
-            : []
-    }
-
-    private languageNode(): xml.XmlObject[] {
-        return this.config.language
-            ? [{language: this.config.language}]
-            : []
-    }
-
-    private copyrightNode(): xml.XmlObject[] {
-        return this.config.copyright
-            ? [{copyright: this.config.copyright}]
-            : []
-    }
-
-    private imageNode(): xml.XmlObject[] {
-        return this.config.imageUrl
-            ? [{image: [
-                {url: this.config.imageUrl},
-                {title: this.config.title},
-                {link: this.config.link},
-            ]}]
-            : []
-    }
-
-    private managingEditorNode(): xml.XmlObject[] {
-        return this.config.managingEditor
-            ? [{managingEditor: this.config.managingEditor}]
-            : []
-    }
-
-    private webMasterNode(): xml.XmlObject[] {
-        return this.config.webMaster
-            ? [{webMaster: this.config.webMaster}]
-            : []
-    }
-
-    private ttlNode(): xml.XmlObject[] {
-        return this.config.ttl
-            ? [{ttl: this.config.ttl}]
-            : []
-    }
-
-    private pubDateNode(item: Item): xml.XmlObject[] {
-        return item.pubDate
-            ? [{pubDate: item.pubDate}]
-            : []
     }
 
     private items(): Item[] {
