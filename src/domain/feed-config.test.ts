@@ -109,4 +109,27 @@ test("FeedConfig", {
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")
     },
+
+    "ignores lines that aren't a header-style key-value pair"() {
+        const markdown = trimMargin(`
+            <!--
+            @marss
+            title: foo
+            description: bar
+            link: baz
+            this line should be ignored
+            -->`)
+        const config = parseFeedConfig(markdown)
+        expect(config, equals, {
+            title: "foo",
+            description: "bar",
+            link: "baz",
+            language: null,
+            copyright: null,
+            imageUrl: null,
+            managingEditor: null,
+            webMaster: null,
+            ttl: null,
+        })
+    },
 })

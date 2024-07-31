@@ -94,7 +94,6 @@ yarn build
 
 ### TODO
 
-- test that lines in the @marss comment that aren't formatted as fields are ignored
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
 - let user configure a timezone for dates
