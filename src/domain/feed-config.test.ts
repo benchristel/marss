@@ -1,22 +1,17 @@
-import {test, expect, is, trimMargin} from "@benchristel/taste"
+import {test, expect, is, trimMargin, equals} from "@benchristel/taste"
 import {parseFeedConfig} from "./feed-config.js"
+import {errorFrom} from "../lib/testing.test.js"
+import {MarssError} from "./marss-error.js"
 
-{
-    const config = parseFeedConfig("")
-    test("FeedConfig, given an empty document,", {
-        "has null title"() {
-            expect(config.title, is, null)
-        },
-
-        "has null description"() {
-            expect(config.description, is, null)
-        },
-
-        "has null link"() {
-            expect(config.link, is, null)
-        },
-    })
-}
+test("FeedConfig, given an empty document,", {
+    "throws an error"() {
+        expect(
+            errorFrom(() => parseFeedConfig("")),
+            equals,
+            new MarssError("Required configuration fields are missing: title, description, link"),
+        )
+    },
+})
 
 {
     const markdown = trimMargin`
@@ -42,27 +37,14 @@ import {parseFeedConfig} from "./feed-config.js"
     })
 }
 
-{
-    const markdown = trimMargin`
-        <!--
-        title: The Title
-        description: The Description
-        link: https://foo.bar
-        -->`
-    const config = parseFeedConfig(markdown)
-    test("FeedConfig, given a comment with no @marss directive,", {
-        "has null title"() {
-            expect(config.title, is, null)
-        },
-    })
-}
-
 test("FeedConfig", {
     "parses a title that contains 'description:'"() {
         const markdown = trimMargin`
             <!--
             @marss
             title: description: 1
+            description: doesn't matter
+            link: doesn't matter
             -->`
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "description: 1")
@@ -73,6 +55,8 @@ test("FeedConfig", {
             <!--
             @marss
             title:    \t blah
+            description: doesn't matter
+            link: doesn't matter
             -->`
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")
@@ -83,6 +67,8 @@ test("FeedConfig", {
             <!--
             @marss
             title:blah
+            description: doesn't matter
+            link: doesn't matter
             -->`
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")
@@ -93,6 +79,8 @@ test("FeedConfig", {
             <!--
             @marss
             title  : blah
+            description: doesn't matter
+            link: doesn't matter
             -->`
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")
@@ -103,6 +91,8 @@ test("FeedConfig", {
             <!--
             @marss
               \t title: blah
+            description: doesn't matter
+            link: doesn't matter
             -->`
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")
@@ -113,6 +103,8 @@ test("FeedConfig", {
             <!--
             @marss
             title: blah${"  "}
+            description: doesn't matter
+            link: doesn't matter
             -->`)
         const config = parseFeedConfig(markdown)
         expect(config.title, is, "blah")

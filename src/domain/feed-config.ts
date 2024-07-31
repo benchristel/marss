@@ -1,11 +1,13 @@
+import {is, not} from "@benchristel/taste"
 import {notNullish} from "../language/nullish.js"
 import {trim} from "../language/strings.js"
 import {marssComment} from "./marss-comment.js"
+import {MarssError} from "./marss-error.js"
 
 export type FeedConfig = {
-    title: string | null;
-    description: string | null;
-    link: string | null;
+    title: string;
+    description: string;
+    link: string;
     language: string | null;
     copyright: string | null;
     imageUrl: string | null;
@@ -15,10 +17,11 @@ export type FeedConfig = {
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
+    let missingRequiredFields = ["title", "description", "link"]
     const config: FeedConfig = {
-        title: null,
-        description: null,
-        link: null,
+        title: "",
+        description: "",
+        link: "",
         language: null,
         copyright: null,
         imageUrl: null,
@@ -36,12 +39,18 @@ export function parseFeedConfig(markdown: string): FeedConfig {
             switch (key) {
                 case "title":
                     config.title = value
+                    missingRequiredFields =
+                        missingRequiredFields.filter(not(is("title")))
                     break
                 case "description":
                     config.description = value
+                    missingRequiredFields =
+                        missingRequiredFields.filter(not(is("description")))
                     break
                 case "link":
                     config.link = value
+                    missingRequiredFields =
+                        missingRequiredFields.filter(not(is("link")))
                     break
                 case "language":
                     config.language = value
@@ -65,6 +74,9 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                     unrecognized.push(key)
             }
         })
+    if (missingRequiredFields.length) {
+        throw new MarssError("Required configuration fields are missing: " + missingRequiredFields.join(", "))
+    }
     if (unrecognized.length) {
         console.warn("Warning: unrecognized configuration fields are present: " + unrecognized.join(", "))
     }

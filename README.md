@@ -94,7 +94,6 @@ yarn build
 
 ### TODO
 
-- move feed config validation to parseFeedConfig, and tighten up the FeedConfig type
 - test that lines in the @marss comment that aren't formatted as fields are ignored
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
