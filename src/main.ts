@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {readFileSync, writeFileSync} from "fs"
 import {Feed} from "./domain/feed.js"
 import {MarssError} from "./domain/marss-error.js"
