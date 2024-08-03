@@ -30,7 +30,7 @@ export class RssFeedRenderer implements FeedRenderer {
                                 item: [
                                     {title: item.title},
                                     {description: {_cdata: item.description}},
-                                    {guid: item.guid},
+                                    {guid: [{_attr: {isPermaLink: "false"}}, item.guid]},
                                     ...this.pubDateNode(item),
                                 ],
                             })),

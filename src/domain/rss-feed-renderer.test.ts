@@ -112,7 +112,7 @@ test("RssFeedRenderer", {
             <item>
                 <title>Item Title</title>
                 <description><![CDATA[<p>Item Description</p>]]></description>
-                <guid>1234</guid>
+                <guid isPermaLink="false">1234</guid>
             </item>`)
     },
 
