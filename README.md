@@ -94,8 +94,6 @@ yarn build
 
 ### TODO
 
-- Handle nonexistent input file
-- Handle nonexistent output directory
 - Generate HTML changelogs
 - Add `location` config field and add links to headings
 - let user configure a timezone for dates

@@ -112,3 +112,12 @@ test("marss, given unrecognized config fields", {
         expect(stderr.toString(), is, `Warning: unrecognized configuration fields are present: foo, bar\n`)
     },
 })
+
+test("marss, when input file doesn't exist", {
+    "logs an error"() {
+        const dir = createTempDir()
+        const {stderr} = marss(`${dir}/i-do-not-exist.md`, `${dir}/output.rss`)
+        expect(stderr.toString(), contains, "ENOENT: no such file or directory")
+        expect(stderr.toString(), contains, "i-do-not-exist.md")
+    },
+})
