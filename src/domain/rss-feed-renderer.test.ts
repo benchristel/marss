@@ -18,53 +18,63 @@ const minimalFeed: FeedPresentation = {
 
 test("RssFeedRenderer", {
     "renders a minimal feed"() {
-        const rss = new RssFeedRenderer(minimalFeed).render()
+        const feed: FeedPresentation = {
+            ...minimalFeed,
+            title: "moo",
+            description: "baa",
+            link: "oink",
+        }
+
+        const rss = new RssFeedRenderer(feed).render()
+
         expect(rss, is, trimMargin`
             <?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0">
                 <channel>
-                    <title>minimal title</title>
-                    <description>minimal description</description>
-                    <link>minimal link</link>
+                    <title>moo</title>
+                    <description>baa</description>
+                    <link>oink</link>
                 </channel>
             </rss>`)
     },
 
     "includes <language> if provided"() {
-        const rss = new RssFeedRenderer({
+        const feed: FeedPresentation = {
             ...minimalFeed,
             language: "en-us",
-        }).render()
+        }
 
-        expect(rss, containsIgnoringWhitespace, trimMargin`
-            <channel>
-                <title>minimal title</title>
-                <description>minimal description</description>
-                <link>minimal link</link>
-                <language>en-us</language>
-            </channel>`)
+        const rss = new RssFeedRenderer(feed).render()
+
+        expect(rss, contains, `<language>en-us</language>`)
     },
 
     "includes <copyright> if provided"() {
-        const rss = new RssFeedRenderer({
+        const feed: FeedPresentation = {
             ...minimalFeed,
             copyright: "Copyright 1995 Elias Tusques",
-        }).render()
+        }
+
+        const rss = new RssFeedRenderer(feed).render()
 
         expect(rss, contains, "<copyright>Copyright 1995 Elias Tusques</copyright>")
     },
 
     "includes <image> if provided"() {
-        const rss = new RssFeedRenderer({
+        const feed: FeedPresentation = {
             ...minimalFeed,
+            title: "foo",
+            link: "bar",
             imageUrl: "https://example.com/foo.jpg",
-        }).render()
+        }
+
+        const rss = new RssFeedRenderer(feed).render()
 
         expect(rss, containsIgnoringWhitespace, `
             <image>
                 <url>https://example.com/foo.jpg</url>
-                <title>minimal title</title>
-                <link>minimal link</link>
+                <title>foo</title>
+                <link>bar</link>
             </image>`)
     },
 
