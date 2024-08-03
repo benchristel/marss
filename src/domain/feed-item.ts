@@ -9,6 +9,11 @@ export type Item = {
     description: string;
     guid: string;
     pubDate: string | null;
+    link: string | null;
+}
+
+export function title(item: Item): string {
+    return item.title
 }
 
 const none: Array<never> = []
@@ -24,6 +29,7 @@ export function splitDocumentIntoItems(html: string): Item[] {
                         description: render(getDescriptionNodes(node)).trim(),
                         guid: getAttributeValue(node, "id") ?? title,
                         pubDate: extractDate(title),
+                        link: null,
                     }
                 }
         }

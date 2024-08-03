@@ -1,5 +1,5 @@
-import {test, expect, equals, which, trimMargin} from "@benchristel/taste"
-import {splitDocumentIntoItems} from "./feed-item.js"
+import {test, expect, equals, which, trimMargin, is} from "@benchristel/taste"
+import {splitDocumentIntoItems, title} from "./feed-item.js"
 
 test("splitDocumentIntoItems", {
     "returns an empty array given empty HTML"() {
@@ -20,6 +20,7 @@ test("splitDocumentIntoItems", {
                 description: "",
                 guid: which(isAnything),
                 pubDate: null,
+                link: null,
             },
         ])
     },
@@ -32,6 +33,7 @@ test("splitDocumentIntoItems", {
                 description: "",
                 guid: which(isAnything),
                 pubDate: null,
+                link: null,
             },
         ])
     },
@@ -48,6 +50,7 @@ test("splitDocumentIntoItems", {
                 description: "<p>hello</p>\n<p>world</p>",
                 guid: which(isAnything),
                 pubDate: null,
+                link: null,
             },
         ])
     },
@@ -59,44 +62,21 @@ test("splitDocumentIntoItems", {
           <h2>two</h2>
           <p>world</p>
           `
-        expect(splitDocumentIntoItems(html), equals, [
-            {
-                title: "one",
-                description: "<p>hello</p>",
-                guid: which(isAnything),
-                pubDate: null,
-            },
-            {
-                title: "two",
-                description: "<p>world</p>",
-                guid: which(isAnything),
-                pubDate: null,
-            },
-        ])
+        expect(
+            splitDocumentIntoItems(html).map(title),
+            equals,
+            ["one", "two"],
+        )
     },
 
     "bases an item's guid on its heading id"() {
         const html = `<h2 id="foo">blah</h2>`
-        expect(splitDocumentIntoItems(html), equals, [
-            {
-                title: "blah",
-                description: "",
-                guid: "foo",
-                pubDate: null,
-            },
-        ])
+        expect(splitDocumentIntoItems(html)[0].guid, is, "foo")
     },
 
     "uses the title as the guid if the heading has no id"() {
         const html = `<h2>blah</h2>`
-        expect(splitDocumentIntoItems(html), equals, [
-            {
-                title: "blah",
-                description: "",
-                guid: "blah",
-                pubDate: null,
-            },
-        ])
+        expect(splitDocumentIntoItems(html)[0].guid, equals, "blah")
     },
 
     "parses a date out of the heading"() {

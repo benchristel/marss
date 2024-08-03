@@ -114,6 +114,7 @@ test("RssFeedRenderer", {
                     description: "<p>Item Description</p>",
                     guid: "1234",
                     pubDate: null,
+                    link: null,
                 },
             ],
         }).render()
@@ -135,6 +136,7 @@ test("RssFeedRenderer", {
                     description: "doesn't matter",
                     guid: "doesn't matter",
                     pubDate: "Fri, Dec 21 2012 00:00:00 +0000",
+                    link: null,
                 },
             ],
         }).render()
@@ -151,6 +153,7 @@ test("RssFeedRenderer", {
                     description: "]]>",
                     guid: "doesn't matter",
                     pubDate: null,
+                    link: null,
                 },
             ],
         }).render()
