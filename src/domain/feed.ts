@@ -35,6 +35,6 @@ export class Feed {
     }
 
     private items(): Item[] {
-        return splitDocumentIntoItems(this._html)
+        return splitDocumentIntoItems(this._html, this.config.htmlUrl)
     }
 }

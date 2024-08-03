@@ -79,6 +79,16 @@ test("splitDocumentIntoItems", {
         expect(splitDocumentIntoItems(html)[0].guid, equals, "blah")
     },
 
+    "links an item to a heading in the given URL"() {
+        const html = `<h2 id="foo">blah</h2>`
+        const url = "https://example.com/updates.html"
+        expect(
+            splitDocumentIntoItems(html, url)[0].link,
+            is,
+            "https://example.com/updates.html#foo",
+        )
+    },
+
     "parses a date out of the heading"() {
         const html = `<h2>2012-12-21</h2>`
         expect(splitDocumentIntoItems(html)[0]?.pubDate, equals, "Fri, 21 Dec 2012 00:00:00 +0000")

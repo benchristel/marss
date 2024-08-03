@@ -31,7 +31,8 @@ export class RssFeedRenderer implements FeedRenderer {
                                     {title: item.title},
                                     {description: {_cdata: item.description}},
                                     {guid: [{_attr: {isPermaLink: "false"}}, item.guid]},
-                                    ...this.pubDateNode(item),
+                                    ...this.itemLinkNode(item),
+                                    ...this.itemPubDateNode(item),
                                 ],
                             })),
                         ],
@@ -100,9 +101,15 @@ export class RssFeedRenderer implements FeedRenderer {
             : []
     }
 
-    private pubDateNode(item: Item): xml.XmlObject[] {
+    private itemPubDateNode(item: Item): xml.XmlObject[] {
         return item.pubDate
             ? [{pubDate: item.pubDate}]
+            : []
+    }
+
+    private itemLinkNode(item: Item): xml.XmlObject[] {
+        return item.link
+            ? [{link: item.link}]
             : []
     }
 }

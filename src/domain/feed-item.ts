@@ -17,19 +17,23 @@ export function title(item: Item): string {
 }
 
 const none: Array<never> = []
-export function splitDocumentIntoItems(html: string): Item[] {
+export function splitDocumentIntoItems(
+    html: string,
+    htmlUrl: string | null = null,
+): Item[] {
     const root = parseDocument(html)
     return root.children.flatMap((node) => {
         switch (node.type) {
             case "tag":
                 if (node.name === "h2") {
                     const title = innerText(node)
+                    const id = getAttributeValue(node, "id")
                     return {
                         title,
                         description: render(getDescriptionNodes(node)).trim(),
-                        guid: getAttributeValue(node, "id") ?? title,
+                        guid: id ?? title,
                         pubDate: extractDate(title),
-                        link: null,
+                        link: htmlUrl && id ? `${htmlUrl}#${id}` : null,
                     }
                 }
         }

@@ -22,7 +22,7 @@ test("FeedConfig, given an empty document,", {
         link: https://foo.bar
         -->`
     const config = parseFeedConfig(markdown)
-    test("FeedConfig, given a @marss comment,", {
+    test("FeedConfig, given a minimal @marss comment,", {
         "has the title from the comment"() {
             expect(config.title, is, "The Title")
         },
@@ -33,6 +33,65 @@ test("FeedConfig, given an empty document,", {
 
         "has the link from the comment"() {
             expect(config.link, is, "https://foo.bar")
+        },
+    })
+}
+
+{
+    const markdown = trimMargin`
+        <!--
+        @marss
+        title: The Website of Winnie the Pooh
+        link: https://example.com
+        description: A bear of very little brain.
+        htmlUrl: https://example.com/changelog.html
+        language: en-us
+        copyright: Copyright 1926-2024, Edward Bear
+        imageUrl: https://example.com/88x31.gif
+        managingEditor: pooh@100acre.wood (Edward Bear)
+        webMaster: cr@100acre.wood (Christopher Robin)
+        ttl: 3600
+        -->`
+    const config = parseFeedConfig(markdown)
+    test("FeedConfig, given a maximal @marss comment,", {
+        "has the title"() {
+            expect(config.title, is, "The Website of Winnie the Pooh")
+        },
+
+        "has the description"() {
+            expect(config.description, is, "A bear of very little brain.")
+        },
+
+        "has the link"() {
+            expect(config.link, is, "https://example.com")
+        },
+
+        "has the htmlUrl"() {
+            expect(config.htmlUrl, is, "https://example.com/changelog.html")
+        },
+
+        "has the language"() {
+            expect(config.language, is, "en-us")
+        },
+
+        "has the copyright"() {
+            expect(config.copyright, is, "Copyright 1926-2024, Edward Bear")
+        },
+
+        "has the image url"() {
+            expect(config.imageUrl, is, "https://example.com/88x31.gif")
+        },
+
+        "has the managingEditor"() {
+            expect(config.managingEditor, is, "pooh@100acre.wood (Edward Bear)")
+        },
+
+        "has the webMaster"() {
+            expect(config.webMaster, is, "cr@100acre.wood (Christopher Robin)")
+        },
+
+        "has the ttl"() {
+            expect(config.ttl, is, "3600")
         },
     })
 }
@@ -130,6 +189,7 @@ test("FeedConfig", {
             managingEditor: null,
             webMaster: null,
             ttl: null,
+            htmlUrl: null,
         })
     },
 })

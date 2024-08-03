@@ -144,6 +144,23 @@ test("RssFeedRenderer", {
         expect(rss, contains, "<pubDate>Fri, Dec 21 2012 00:00:00 +0000</pubDate>")
     },
 
+    "includes an item's <link> if present"() {
+        const rss = new RssFeedRenderer({
+            ...minimalFeed,
+            items: [
+                {
+                    title: "doesn't matter",
+                    description: "doesn't matter",
+                    guid: "doesn't matter",
+                    pubDate: null,
+                    link: "https://benchristel.com",
+                },
+            ],
+        }).render()
+
+        expect(rss, contains, "<link>https://benchristel.com</link>")
+    },
+
     "escapes ]]> in CDATA"() {
         const rss = new RssFeedRenderer({
             ...minimalFeed,

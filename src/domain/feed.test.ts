@@ -56,6 +56,7 @@ test("a Markdown feed", {
             title: Recent Updates to A Cool Website
             description: this is a description
             link: https://example.com
+            htmlUrl: https://example.com/updates.html
             -->
 
             ## 2012-12-21: The Long Count ends tonight!
@@ -76,6 +77,7 @@ test("a Markdown feed", {
                         <title>2012-12-21: The Long Count ends tonight!</title>
                         <description><![CDATA[<p>The Mayan calendar is officially over.</p>]]></description>
                         <guid isPermaLink="false">2012-12-21-the-long-count-ends-tonight</guid>
+                        <link>https://example.com/updates.html#2012-12-21-the-long-count-ends-tonight</link>
                         <pubDate>Fri, 21 Dec 2012 00:00:00 +0000</pubDate>
                     </item>
                 </channel>
