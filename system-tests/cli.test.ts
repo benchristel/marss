@@ -48,6 +48,17 @@ test("marss, given valid input,", {
         const feed = readFileSync(`${dir}/output.rss`, "utf-8")
         expect(feed, contains, `<rss version="2.0">`)
     },
+
+    "creates parent directories"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, minimalChannelConfig, "utf-8")
+
+        marss(`${dir}/input.md`, `${dir}/a/b/output.rss`)
+
+        expect(`${dir}/a/b/output.rss`, existsSync)
+        const feed = readFileSync(`${dir}/a/b/output.rss`, "utf-8")
+        expect(feed, contains, `<rss version="2.0">`)
+    },
 })
 
 test("marss, given empty Markdown input,", {
