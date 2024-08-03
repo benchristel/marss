@@ -7,13 +7,17 @@ import {RssFeedRenderer} from "./rss-feed-renderer.js"
 export class Feed {
     private config: FeedConfig
     private _html: string
+    private _rss: string | undefined
     constructor(markdown: string) {
         this.config = parseFeedConfig(markdown)
         this._html = htmlFromMarkdown(markdown)
     }
 
     rss(): string {
-        return new RssFeedRenderer(this.present()).render()
+        if (this._rss == null) {
+            this._rss = new RssFeedRenderer(this.present()).render()
+        }
+        return this._rss
     }
 
     html(): string {
