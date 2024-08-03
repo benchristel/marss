@@ -121,3 +121,20 @@ test("marss, when input file doesn't exist", {
         expect(stderr.toString(), contains, "i-do-not-exist.md")
     },
 })
+
+test("marss, given multiple output files", {
+    "writes each one in the appropriate format"() {
+        const dir = createTempDir()
+        writeFileSync(`${dir}/input.md`, minimalChannelConfig, "utf-8")
+
+        marss(`${dir}/input.md`, `${dir}/output.rss`, `${dir}/output.html`)
+
+        expect(`${dir}/output.rss`, existsSync)
+        const rss = readFileSync(`${dir}/output.rss`, "utf-8")
+        expect(rss, contains, `<rss version="2.0">`)
+
+        expect(`${dir}/output.html`, existsSync)
+        const html = readFileSync(`${dir}/output.html`, "utf-8")
+        expect(html, contains, `<!--`)
+    },
+})

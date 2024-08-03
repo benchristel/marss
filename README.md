@@ -14,6 +14,12 @@ npx marss path/to/changelog.md path/to/feed.rss
 
 This will read `path/to/changelog.md` and generate `path/to/feed.rss`.
 
+### Command Line Syntax
+
+```sh
+marss INPUTFILE OUTPUTFILES...
+```
+
 ## Markdown Changelog Format
 
 ### Example
@@ -67,6 +73,23 @@ plugins:
 
 - `marked-gfm-heading-id`
 
+## Output Formats
+
+The output file paths may have `.rss`, `.xml`, or `.html` extensions. If the
+extension of a file is `.html`, an HTML feed will be written to that file;
+otherwise, an RSS 2.0 feed will be written.
+
+Note that the HTML output will be the bare HTMLified Markdown; i.e. it won't
+be wrapped in `<html>` or `<body>` tags. You should pass the HTML through a
+templating system of some sort before publishing it.
+
+### Why use `marss` to generate HTML feeds?
+
+It might seem redundant to have `marss` generate HTML for you - won't your
+static site generator do that on its own? However, letting `marss` generate
+the HTML ensures that the heading IDs in the HTML will be the same as the
+ones in the RSS, so links to those headings from the RSS feed will work.
+
 ## Development
 
 <details>
@@ -94,7 +117,6 @@ yarn build
 
 ### TODO
 
-- Generate HTML changelogs
 - Add `location` config field and add links to headings
 - let user configure a timezone for dates
 

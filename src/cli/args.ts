@@ -1,9 +1,9 @@
 export type Arguments = {
     inputPath: string;
-    outputPath: string;
+    outputPaths: string[];
 }
 
 export function parseArguments(rawArgs: string[]): Arguments {
-    const [inputPath, outputPath] = rawArgs.slice(2)
-    return {inputPath, outputPath}
+    const [inputPath, ...outputPaths] = rawArgs.slice(2)
+    return {inputPath, outputPaths}
 }

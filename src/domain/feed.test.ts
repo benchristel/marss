@@ -105,4 +105,36 @@ test("a Markdown feed", {
             </rss>
             `)
     },
+
+    "renders an HTML feed"() {
+        const markdown = trimMargin`
+            # A Cool Website
+
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            -->
+
+            ## 2012-12-21: The Long Count ends tonight!
+
+            The Mayan calendar is officially over.
+            `
+        const html = new Feed(markdown).html()
+
+        expect(html, is, trimMargin`
+            <h1 id="a-cool-website">A Cool Website</h1>
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            -->
+
+            <h2 id="2012-12-21-the-long-count-ends-tonight">2012-12-21: The Long Count ends tonight!</h2>
+            <p>The Mayan calendar is officially over.</p>
+
+            `)
+    },
 })

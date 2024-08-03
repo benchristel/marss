@@ -6,14 +6,18 @@ import {RssFeedRenderer} from "./rss-feed-renderer.js"
 
 export class Feed {
     private config: FeedConfig
-    private html: string
+    private _html: string
     constructor(markdown: string) {
         this.config = parseFeedConfig(markdown)
-        this.html = htmlFromMarkdown(markdown)
+        this._html = htmlFromMarkdown(markdown)
     }
 
     rss(): string {
         return new RssFeedRenderer(this.present()).render()
+    }
+
+    html(): string {
+        return this._html
     }
 
     private present(): FeedPresentation {
@@ -27,6 +31,6 @@ export class Feed {
     }
 
     private items(): Item[] {
-        return splitDocumentIntoItems(this.html)
+        return splitDocumentIntoItems(this._html)
     }
 }
