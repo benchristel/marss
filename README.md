@@ -32,6 +32,7 @@ marss INPUTFILE OUTPUTFILES...
 title: The Website of Winnie the Pooh
 link: https://example.com
 description: A bear of very little brain.
+htmlUrl: https://example.com/changelog.html
 language: en-us
 copyright: Copyright 1926-2024, Edward Bear
 imageUrl: https://example.com/88x31.gif
@@ -167,6 +168,23 @@ the heading, in the format `YYYY-MM-DD`, it will be used as the publication
 date of that item. Marss assumes that level-2 headings are unique within the
 feed, and may do awkward things if it encounters duplicate headings.
 
+### `htmlUrl` and links to feed items
+
+Most RSS readers will display, alongside or in the heading of each feed
+item, a link to the original article. This makes it easy for users to read
+the article in their web browser if they choose.
+
+In order for this to work with `marss`-generated feeds, you need to do two
+things:
+
+- Add an `htmlUrl` field to your `@marss` metadata. The `htmlUrl` should be
+  the fully-qualified URL of the HTML version of your changelog or microblog.
+- Use `marss` to convert your markdown changelog to HTML, as described in
+  "Output Formats" below.
+
+If you have done both of these things, marss will link each feed item to its
+corresponding level-2 heading in the HTML changelog.
+
 ### Markdown Format
 
 Marss uses [`marked`](https://marked.js.org) as the markdown parser / HTML generator. These plugins are included:
@@ -174,6 +192,12 @@ Marss uses [`marked`](https://marked.js.org) as the markdown parser / HTML gener
 - `marked-gfm-heading-id`
 
 ## Output Formats
+
+You may specify any number of output file paths on the command line, e.g.
+
+```bash
+marss input.md output/rss.xml output/changelog.html
+```
 
 The output file paths may have `.rss`, `.xml`, or `.html` extensions. If the
 extension of a file is `.html`, an HTML feed will be written to that file;
