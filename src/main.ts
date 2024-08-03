@@ -15,7 +15,7 @@ try {
     mkdirSync(dirname(outputPath), {recursive: true})
     writeFileSync(outputPath, rss, "utf-8")
 } catch (e) {
-    if (e instanceof MarssError) {
+    if (e instanceof Error) {
         console.error(e.message)
         process.exit(1)
     } else {
