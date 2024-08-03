@@ -9,9 +9,9 @@ try {
 
     const markdown = readFileSync(inputPath, "utf-8")
 
-    const feed = new Feed(markdown)
+    const rss = new Feed(markdown).rss()
 
-    writeFileSync(outputPath, feed.rss(), "utf-8")
+    writeFileSync(outputPath, rss, "utf-8")
 } catch (e) {
     if (e instanceof MarssError) {
         console.error(e.message)
