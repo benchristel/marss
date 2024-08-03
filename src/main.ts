@@ -2,10 +2,10 @@
 import {readFileSync, writeFileSync} from "fs"
 import {Feed} from "./domain/feed.js"
 import {MarssError} from "./domain/marss-error.js"
+import {parseArguments} from "./cli/args.js"
 
 try {
-    const args = process.argv.slice(2)
-    const [inputPath, outputPath] = args
+    const {inputPath, outputPath} = parseArguments(process.argv)
 
     const markdown = readFileSync(inputPath, "utf-8")
 
