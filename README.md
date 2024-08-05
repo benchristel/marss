@@ -241,10 +241,10 @@ yarn build
 
 ### TODO
 
-- Add `location` config field and add links to headings
 - let user configure a timezone for dates
 - Follow Long Branch Last in RSS item renderer
 - add `<generator>marss</generator>`
 - release 1.0
+- convert relative URLs to absolute when HTML is parsed.
 
 </details>
