@@ -33,6 +33,7 @@ title: The Website of Winnie the Pooh
 link: https://example.com
 description: A bear of very little brain.
 htmlUrl: https://example.com/changelog.html
+publishAtUtcHour: 12
 language: en-us
 copyright: Copyright 1926-2024, Edward Bear
 imageUrl: https://example.com/88x31.gif
@@ -168,6 +169,50 @@ the heading, in the format `YYYY-MM-DD`, it will be used as the publication
 date of that item. Marss assumes that level-2 headings are unique within the
 feed, and may do awkward things if it encounters duplicate headings.
 
+### Setting the publication time
+
+You can set the publication time (in hours after midnight UTC) of each feed
+item by adding the `publishAtUtcHour` field to your `@marss` metadata. For
+example:
+
+```
+<!--
+@marss
+...
+# Posts will have their pubDate set to 3 AM UTC
+publishAtUtcHour: 3
+-->
+```
+
+If `publishAtUtcHour` is not set, the publication time will default to
+midnight UTC on the date specified in the feed item heading.
+
+<details>
+<summary><h3>Why would you want to set the pubDate?</h3></summary>
+
+Feed readers typically display publication dates in the reader's local
+timezone. Using midnight UTC as the publication time might cause that local
+date to be inconsistent with the heading of the feed item for some of your
+readers.
+
+For example, a feed item whose publication date is midnight, January 1st in
+UTC will appear to have been published on December 31st to readers in
+California.
+
+To ensure the date is displayed consistently in (almost) every timezone, you
+can publish at noon UTC by setting `publishAtUtcHour: 12`. The downside is
+that your posts will not appear in some feed readers until that hour; i.e.
+users in England will not see your posts until noon their time, even if you
+update your feed before noon.
+
+You can set `publishAtUtcHour` to a negative value to set `pubDate` to the
+UTC date prior to the date specified in the feed item heading.
+
+If this all seems too complicated, feel free to ignore it. Nothing will break
+if you don't set `publishAtUtcHour`.
+
+</details>
+
 ### `htmlUrl` and links to feed items
 
 Most RSS readers will display, alongside or in the heading of each feed
@@ -241,7 +286,6 @@ yarn build
 
 ### TODO
 
-- let user configure a timezone for dates
 - Follow Long Branch Last in RSS item renderer
 - add `<generator>marss</generator>`
 - release 1.0

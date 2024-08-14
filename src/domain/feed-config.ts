@@ -15,6 +15,7 @@ export type FeedConfig = {
     webMaster: string | null;
     ttl: string | null;
     htmlUrl: string | null;
+    publishAtUtcHour: number;
 }
 
 export function parseFeedConfig(markdown: string): FeedConfig {
@@ -30,6 +31,7 @@ export function parseFeedConfig(markdown: string): FeedConfig {
         webMaster: null,
         ttl: null,
         htmlUrl: null,
+        publishAtUtcHour: 0,
     }
     let unrecognized: string[] = []
     ;(marssComment(markdown) ?? "")
@@ -74,6 +76,9 @@ export function parseFeedConfig(markdown: string): FeedConfig {
                     break
                 case "htmlUrl":
                     config.htmlUrl = value
+                    break
+                case "publishAtUtcHour":
+                    config.publishAtUtcHour = isNaN(+value) ? 0 : +value
                     break
                 default:
                     unrecognized.push(key)

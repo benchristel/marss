@@ -108,6 +108,18 @@ test("parseFeedItems", {
         const html = `<h2>Dec 1, 2024</h2>`
         expect(parseFeedItems(html)[0]?.pubDate, equals, "Sun, 01 Dec 2024 00:00:00 +0000")
     },
+
+    "publishes a given number of hours after UTC midnight"() {
+        const html = `<h2>Dec 1, 2024</h2>`
+        const params = {publishAtUtcHour: 7}
+        expect(parseFeedItems(html, params)[0]?.pubDate, equals, "Sun, 01 Dec 2024 07:00:00 +0000")
+    },
+
+    "publishes a given number of hours before UTC midnight"() {
+        const html = `<h2>Dec 1, 2024</h2>`
+        const params = {publishAtUtcHour: -5}
+        expect(parseFeedItems(html, params)[0]?.pubDate, equals, "Sat, 30 Nov 2024 19:00:00 +0000")
+    },
 })
 
 function isAnything() {

@@ -51,6 +51,7 @@ test("FeedConfig, given an empty document,", {
         managingEditor: pooh@100acre.wood (Edward Bear)
         webMaster: cr@100acre.wood (Christopher Robin)
         ttl: 3600
+        publishAtUtcHour: 3
         -->`
     const config = parseFeedConfig(markdown)
     test("FeedConfig, given a maximal @marss comment,", {
@@ -92,6 +93,10 @@ test("FeedConfig, given an empty document,", {
 
         "has the ttl"() {
             expect(config.ttl, is, "3600")
+        },
+
+        "has publishAtUtcHour"() {
+            expect(config.publishAtUtcHour, is, 3)
         },
     })
 }
@@ -190,6 +195,33 @@ test("FeedConfig", {
             webMaster: null,
             ttl: null,
             htmlUrl: null,
+            publishAtUtcHour: 0,
         })
+    },
+
+    "defaults invalid publishAtUtcHour to 0"() {
+        const markdown = trimMargin(`
+            <!--
+            @marss
+            title: foo
+            description: bar
+            link: baz
+            publishAtUtcHour: asdf
+            -->`)
+        const config = parseFeedConfig(markdown)
+        expect(config.publishAtUtcHour, is, 0)
+    },
+
+    "parses publishAtUtcHour in decimal"() {
+        const markdown = trimMargin(`
+            <!--
+            @marss
+            title: foo
+            description: bar
+            link: baz
+            publishAtUtcHour: 09
+            -->`)
+        const config = parseFeedConfig(markdown)
+        expect(config.publishAtUtcHour, is, 9)
     },
 })
