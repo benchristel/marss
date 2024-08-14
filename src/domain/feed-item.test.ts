@@ -93,6 +93,16 @@ test("parseFeedItems", {
         const html = `<h2>2012-12-21</h2>`
         expect(parseFeedItems(html)[0]?.pubDate, equals, "Fri, 21 Dec 2012 00:00:00 +0000")
     },
+
+    "parses a date with other text around it"() {
+        const html = `<h2>blah 2012-12-21 blah</h2>`
+        expect(parseFeedItems(html)[0]?.pubDate, equals, "Fri, 21 Dec 2012 00:00:00 +0000")
+    },
+
+    "parses a date formatted like 'August 13, 2024'"() {
+        const html = `<h2>August 13, 2024</h2>`
+        expect(parseFeedItems(html)[0]?.pubDate, equals, "Tue, 13 Aug 2024 00:00:00 +0000")
+    },
 })
 
 function isAnything() {

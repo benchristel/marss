@@ -2,7 +2,7 @@ import {parseDocument} from "htmlparser2"
 import render from "dom-serializer"
 import type {ChildNode} from "domhandler"
 import {getAttributeValue, innerText} from "domutils"
-import {rfc822} from "../language/date.js"
+import {dateRegex, rfc822} from "../language/date.js"
 
 export type Item = {
     title: string;
@@ -52,7 +52,7 @@ function getDescriptionNodes(heading: ChildNode): ChildNode[] {
 }
 
 function extractDate(s: string): string | null {
-    const match = s.match(/\d\d\d\d-\d\d-\d\d/)?.[0]
+    const match = s.match(dateRegex)?.[0]
     if (!match) {
         return null
     }
