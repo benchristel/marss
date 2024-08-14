@@ -1,5 +1,5 @@
 import {expect, is, test} from "@benchristel/taste"
-import {dateRegex, rfc822} from "./date.js"
+import {rfc822} from "./date.js"
 
 test("rfc822", {
     "converts the epoch"() {
@@ -16,12 +16,5 @@ test("rfc822", {
 
     "parses a date like 'Dec 1, 2024'"() {
         expect(rfc822("Dec 1, 2024"), is, "Sun, 01 Dec 2024 00:00:00 +0000")
-    },
-})
-
-test("dateRegex", {
-    "recognizes a date with extra whitespace"() {
-        const date = "January \t\n  1, \r  1970"
-        expect(date.match(dateRegex)?.[0], is, date)
     },
 })

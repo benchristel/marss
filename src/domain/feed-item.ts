@@ -2,7 +2,8 @@ import {parseDocument} from "htmlparser2"
 import render from "dom-serializer"
 import type {ChildNode} from "domhandler"
 import {getAttributeValue, innerText} from "domutils"
-import {dateRegex, rfc822} from "../language/date.js"
+import {rfc822} from "../language/date.js"
+import {dateRegex} from "./feed-item-date.js"
 
 export type Item = {
     title: string;
