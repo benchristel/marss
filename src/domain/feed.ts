@@ -1,6 +1,6 @@
 import {FeedConfig, parseFeedConfig} from "./feed-config.js"
 import {htmlFromMarkdown} from "../lib/markdown.js"
-import {Item, splitDocumentIntoItems} from "./feed-item.js"
+import {Item, parseFeedItems} from "./feed-item.js"
 import {FeedPresentation} from "./feed-presentation.js"
 import {RssFeedRenderer} from "./rss-feed-renderer.js"
 
@@ -35,6 +35,6 @@ export class Feed {
     }
 
     private items(): Item[] {
-        return splitDocumentIntoItems(this._html, this.config.htmlUrl)
+        return parseFeedItems(this._html, this.config.htmlUrl)
     }
 }

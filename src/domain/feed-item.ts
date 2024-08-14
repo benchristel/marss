@@ -17,7 +17,7 @@ export function title(item: Item): string {
 }
 
 const none: Array<never> = []
-export function splitDocumentIntoItems(
+export function parseFeedItems(
     html: string,
     htmlUrl: string | null = null,
 ): Item[] {
