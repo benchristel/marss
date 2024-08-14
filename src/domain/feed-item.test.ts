@@ -83,7 +83,7 @@ test("parseFeedItems", {
         const html = `<h2 id="foo">blah</h2>`
         const url = "https://example.com/updates.html"
         expect(
-            parseFeedItems(html, url)[0].link,
+            parseFeedItems(html, {htmlUrl: url})[0].link,
             is,
             "https://example.com/updates.html#foo",
         )

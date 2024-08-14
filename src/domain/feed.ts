@@ -35,6 +35,6 @@ export class Feed {
     }
 
     private items(): Item[] {
-        return parseFeedItems(this._html, this.config.htmlUrl)
+        return parseFeedItems(this._html, this.config)
     }
 }

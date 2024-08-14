@@ -17,11 +17,17 @@ export function title(item: Item): string {
     return item.title
 }
 
-const none: Array<never> = []
+const defaultParseParams = {
+    htmlUrl: null,
+}
+
 export function parseFeedItems(
     html: string,
-    htmlUrl: string | null = null,
+    params: {
+        htmlUrl: string | null;
+    } = defaultParseParams,
 ): Item[] {
+    const {htmlUrl} = params
     const root = parseDocument(html)
     return root.children.flatMap((node) => {
         switch (node.type) {
@@ -63,3 +69,5 @@ function extractDate(s: string): string | null {
 function isH2(node: ChildNode): boolean {
     return node.type === "tag" && node.name === "h2"
 }
+
+const none: Array<never> = []
