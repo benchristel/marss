@@ -103,6 +103,11 @@ test("parseFeedItems", {
         const html = `<h2>August 13, 2024</h2>`
         expect(parseFeedItems(html)[0]?.pubDate, equals, "Tue, 13 Aug 2024 00:00:00 +0000")
     },
+
+    "parses a date formatted like 'Dec 1, 2024'"() {
+        const html = `<h2>Dec 1, 2024</h2>`
+        expect(parseFeedItems(html)[0]?.pubDate, equals, "Sun, 01 Dec 2024 00:00:00 +0000")
+    },
 })
 
 function isAnything() {
