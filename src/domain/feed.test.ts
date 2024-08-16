@@ -2,6 +2,7 @@ import {test, expect, is, trimMargin, equals} from "@benchristel/taste"
 import {Feed} from "./feed.js"
 import {errorFrom} from "../lib/testing.test.js"
 import {MarssError} from "./marss-error.js"
+import {contains} from "../language/strings.js"
 
 test("a Markdown feed", {
     "throws an error if no title is given"() {
@@ -141,5 +142,67 @@ test("a Markdown feed", {
             <p>The Mayan calendar is officially over.</p>
 
             `)
+    },
+
+    "fully-qualifies relative URLs in item descriptions if htmlUrl is set"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            htmlUrl: https://example.com/dir/blog.html
+            -->
+
+            ## item heading
+
+            [root](/root.html)
+            [sibling](sibling.html)
+
+            ![image](/assets/foo.jpg)
+            <audio controls src="/assets/boof.mp3"></audio>
+            <video><source src="/assets/bees.mp4" type="video/mp4"></video>
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, `<a href="https://example.com/root.html">`)
+        expect(rss, contains, `<a href="https://example.com/dir/sibling.html">`)
+        expect(rss, contains, `<img src="https://example.com/assets/foo.jpg" alt="image">`)
+        expect(rss, contains, `<audio controls src="https://example.com/assets/boof.mp3">`)
+        expect(rss, contains, `<source src="https://example.com/assets/bees.mp4" type="video/mp4">`)
+    },
+
+    "tolerates <a> tags without an href"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            htmlUrl: https://example.com/dir/blog.html
+            -->
+
+            ## item heading
+
+            <a name="foo"></a>
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, `<a name="foo">`)
+    },
+
+    "does not attempt to qualify relative URLs if htmlUrl is not set"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            -->
+
+            ## item heading
+
+            [root](/root.html)
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, `<a href="/root.html">`)
     },
 })
