@@ -48,7 +48,7 @@ This content will appear in the feed item's description.
 It will be rendered as HTML, so it can contain **styled text**,
 [links](#), and ![images](img.jpg).
 
-## Thoughts on Woozles, 2021-09-22
+## Wondering about Woozles, 2021-09-22
 
 More content...
 ```
