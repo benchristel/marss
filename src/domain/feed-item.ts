@@ -5,6 +5,7 @@ import {getAttributeValue, innerText} from "domutils"
 import {rfc822} from "../language/date.js"
 import {dateRegex} from "./feed-item-date.js"
 import dayjs from "dayjs"
+import {isH2} from "../lib/dom.js"
 
 export type Item = {
     title: string;
@@ -67,10 +68,6 @@ function extractDate(s: string, hourOffset: number = 0): string | null {
         return null
     }
     return rfc822(dayjs(match).utc(true).add(hourOffset, "hour"))
-}
-
-function isH2(node: ChildNode): boolean {
-    return node.type === "tag" && node.name === "h2"
 }
 
 const none: Array<never> = []
