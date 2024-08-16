@@ -171,6 +171,24 @@ test("a Markdown feed", {
         expect(rss, contains, `<source src="https://example.com/assets/bees.mp4" type="video/mp4">`)
     },
 
+    "does not mess with absolute URLs"() {
+        const markdown = trimMargin`
+            <!--
+            @marss
+            title: Recent Updates to A Cool Website
+            description: this is a description
+            link: https://example.com
+            htmlUrl: https://example.com/dir/blog.html
+            -->
+
+            ## item heading
+
+            [link](https://benchristel.com/page.html)
+            `
+        const rss = new Feed(markdown).rss()
+        expect(rss, contains, `<a href="https://benchristel.com/page.html">`)
+    },
+
     "tolerates <a> tags without an href"() {
         const markdown = trimMargin`
             <!--
