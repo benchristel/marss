@@ -292,9 +292,4 @@ yarn verify
 yarn build
 ```
 
-### TODO
-
-- release 1.0
-- convert relative URLs to absolute when HTML is parsed.
-
 </details>
