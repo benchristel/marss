@@ -164,10 +164,17 @@ beginning of a line are ignored.
 
 ### Feed Items
 
-Each item or entry in the feed begins with a level-2 heading. If there is a date in
-the heading, in the format `YYYY-MM-DD`, it will be used as the publication
-date of that item. Marss assumes that level-2 headings are unique within the
-feed, and may do awkward things if it encounters duplicate headings.
+Each item or entry in the feed begins with a level-2 heading. If there is a
+date in the heading, it will be used as the publication date of that item.
+The recognized date formats are:
+
+- `2024-08-14`
+- `August 14, 2024` (comma optional)
+- `Aug 14, 2024` (3-letter abbreviation, comma optional)
+
+Including dates or incrementing numbers in your headings is recommended.
+Marss assumes that level-2 headings are unique within the feed, and may do
+awkward things if it encounters duplicate headings.
 
 ### Setting the publication time
 
