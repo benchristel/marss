@@ -42,6 +42,7 @@ test("a Markdown feed", {
                     <title>Recent Updates to A Cool Website</title>
                     <description>this is a description</description>
                     <link>https://example.com</link>
+                    <generator>marss</generator>
                 </channel>
             </rss>
             `)
@@ -73,6 +74,7 @@ test("a Markdown feed", {
                     <title>Recent Updates to A Cool Website</title>
                     <description>this is a description</description>
                     <link>https://example.com</link>
+                    <generator>marss</generator>
                     <item>
                         <title>2012-12-21: The Long Count ends tonight!</title>
                         <guid isPermaLink="false">2012-12-21-the-long-count-ends-tonight</guid>
@@ -103,6 +105,7 @@ test("a Markdown feed", {
                     <title>&lt;3 &amp;</title>
                     <description>&gt;&gt;&gt;</description>
                     <link>&quot;wow&quot;</link>
+                    <generator>marss</generator>
                 </channel>
             </rss>
             `)

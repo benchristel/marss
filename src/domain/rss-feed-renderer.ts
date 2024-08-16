@@ -20,6 +20,7 @@ export class RssFeedRenderer implements FeedRenderer {
                             ...this.titleNode(),
                             ...this.descriptionNode(),
                             ...this.linkNode(),
+                            ...this.generatorNode(),
                             ...this.languageNode(),
                             ...this.copyrightNode(),
                             ...this.imageNode(),
@@ -59,6 +60,10 @@ export class RssFeedRenderer implements FeedRenderer {
         return this.feed.link
             ? [{link: this.feed.link}]
             : []
+    }
+
+    private generatorNode(): xml.XmlObject[] {
+        return [{generator: "marss"}]
     }
 
     private languageNode(): xml.XmlObject[] {

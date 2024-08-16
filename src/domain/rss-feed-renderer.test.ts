@@ -34,6 +34,7 @@ test("RssFeedRenderer", {
                     <title>moo</title>
                     <description>baa</description>
                     <link>oink</link>
+                    <generator>marss</generator>
                 </channel>
             </rss>`)
     },
