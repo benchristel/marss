@@ -212,8 +212,9 @@ that your posts will not appear in some feed readers until that hour; i.e.
 users in England will not see your posts until noon their time, even if you
 update your feed before noon.
 
-You can set `publishAtUtcHour` to a negative value to set `pubDate` to the
-UTC date prior to the date specified in the feed item heading.
+You can set `publishAtUtcHour` to a negative value, which will subtract that
+many hours from `pubDate`. In effect, it will set `pubDate` to the UTC date
+prior to the date specified in the feed item heading.
 
 If this all seems too complicated, feel free to ignore it. Nothing will break
 if you don't set `publishAtUtcHour`.
