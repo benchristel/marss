@@ -122,8 +122,8 @@ test("RssFeedRenderer", {
         expect(rss, containsIgnoringWhitespace, `
             <item>
                 <title>Item Title</title>
-                <description><![CDATA[<p>Item Description</p>]]></description>
                 <guid isPermaLink="false">1234</guid>
+                <description><![CDATA[<p>Item Description</p>]]></description>
             </item>`)
     },
 

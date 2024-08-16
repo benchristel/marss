@@ -29,10 +29,10 @@ export class RssFeedRenderer implements FeedRenderer {
                             ...this.feed.items.map((item) => ({
                                 item: [
                                     {title: item.title},
-                                    {description: {_cdata: item.description}},
                                     {guid: [{_attr: {isPermaLink: "false"}}, item.guid]},
                                     ...this.itemLinkNode(item),
                                     ...this.itemPubDateNode(item),
+                                    {description: {_cdata: item.description}},
                                 ],
                             })),
                         ],

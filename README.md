@@ -293,7 +293,6 @@ yarn build
 
 ### TODO
 
-- Follow Long Branch Last in RSS item renderer
 - add `<generator>marss</generator>`
 - release 1.0
 - convert relative URLs to absolute when HTML is parsed.
