@@ -172,7 +172,7 @@ The recognized date formats are:
 - `August 14, 2024` (comma optional)
 - `Aug 14, 2024` (3-letter abbreviation, comma optional)
 
-Including dates or incrementing numbers in your headings is recommended.
+It's a good idea to include dates or incrementing numbers in your headings.
 Marss assumes that level-2 headings are unique within the feed, and may do
 awkward things if it encounters duplicate headings.
 
