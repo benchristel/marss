@@ -13,7 +13,6 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@benchristel/taste": "^0.7.0",
     "@eslint/js": "^9.7.0",
     "@stylistic/eslint-plugin": "^2.3.0",
     "@types/node": "^20.14.12",
@@ -37,6 +36,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@benchristel/taste": "^0.7.0",
     "dayjs": "^1.11.12",
     "dom-serializer": "^2.0.0",
     "domutils": "^3.1.0",
