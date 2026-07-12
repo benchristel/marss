@@ -1,6 +1,6 @@
 {
   "name": "marss",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Markdown-to-RSS converter",
   "main": "dist/index.js",
   "files": [
